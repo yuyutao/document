@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://gqdy365.iteye.com/blog/2098265 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站</title>
+    <meta name="description" content="下面是在做天气预报程序时用到的Json通信，解析方法，备份一下，下次找就方便了； 1、链接服务器获取json字符串：   	public static String getJsonContent(String city) {  		String urlString=&quot;&quot;;  		try {  			urlString = URL + &quot;&amp;location=&amp;qu ...">
+    <meta name="keywords" content=" Android json通信（解析）方法">
+    <link rel="shortcut icon" href="http://gqdy365.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://gqdy365.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://gqdy365.iteye.com/rss" rel="alternate" title="沉淀之路—Android" type="application/rss+xml">
+    <link href="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/red.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/ga.js"></script><script src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/hotkey.js" type="text/javascript"></script>
+  <script src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/code_favorites.js" type="text/javascript"></script>
+<script src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/weiboshare.js" type="text/javascript"></script>
+  <link href="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/ui.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/compress.js" type="text/javascript"></script>
+  <style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://gqdy365.iteye.com/blog/2098265#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+  
+        <a href="http://yuyutao.iteye.com/" title="查看我的博客首页" class="welcome">欢迎yuyutao</a>
+    <a id="notifications_count" href="http://my.iteye.com/notifications" class="" title="没有未读消息">0</a>
+    
+      <a href="http://my.iteye.com/messages" title="发送站内短信">收件箱</a>
+    
+    <a href="http://my.iteye.com/" title="我的应用首页">我的应用</a>
+    <div class="quick_menu" style="display:none;">
+      <a href="http://my.iteye.com/feed" title="我关注的好友动态消息">我的关注</a>
+      <a href="http://my.iteye.com/mygroup" title="我加入的群组最新话题">我的群组</a>
+      <a href="http://my.iteye.com/myresume" title="我的个人简历">我的简历</a>
+      <a href="http://my.iteye.com/admin/album" title="我的个人简历">我的相册</a>
+      <a href="http://my.iteye.com/admin/link" title="我收藏的网络资源链接">我的收藏</a>
+      <a href="http://my.iteye.com/admin/code" title="我收藏的代码">我的代码</a>
+      <a href="http://my.iteye.com/admin/weibo" title="用微博发表简短的话题">我的微博</a>
+    </div>
+    <a href="http://yuyutao.iteye.com/admin" title="管理我的博客">我的博客</a>
+    <a href="http://my.iteye.com/profile" title="修改我的个人设置">设置</a>
+    <a href="http://gqdy365.iteye.com/logout" class="nobg" onclick="var f = document.createElement(&#39;form&#39;); f.style.display = &#39;none&#39;; this.parentNode.appendChild(f); f.method = &#39;POST&#39;; f.action = this.href;var m = document.createElement(&#39;input&#39;); m.setAttribute(&#39;type&#39;, &#39;hidden&#39;); m.setAttribute(&#39;name&#39;, &#39;_method&#39;); m.setAttribute(&#39;value&#39;, &#39;put&#39;); f.appendChild(m);var s = document.createElement(&#39;input&#39;); s.setAttribute(&#39;type&#39;, &#39;hidden&#39;); s.setAttribute(&#39;name&#39;, &#39;authenticity_token&#39;); s.setAttribute(&#39;value&#39;, &#39;woLksltZuqMQR6XCKWa2xo3pSzDdEO8zokaLwkV7X0o=&#39;); f.appendChild(s);f.submit();return false;">退出</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://gqdy365.iteye.com/">沉淀之路—Android</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://gqdy365.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://gqdy365.iteye.com/weibo">微博</a></li>
+            <li><a href="http://gqdy365.iteye.com/album">相册</a></li>
+            <li><a href="http://gqdy365.iteye.com/link">收藏</a></li>
+            <li><a href="http://gqdy365.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://gqdy365.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://gqdy365.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://gqdy365.iteye.com/" class="p-author" target="_blank">gqdy365</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站.html">Android json通信（解析）方法</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://gqdy365.iteye.com/category/163561">android网络编程</a></li> </ul>
+        <div class="news_tag"></div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    下面是在做天气预报程序时用到的Json通信，解析方法，备份一下，下次找就方便了；
+<br>
+<br>1、链接服务器获取json字符串：
+<br>
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%09public%20static%20String%20getJsonContent(String%20city)%20%7B%0A%09%09String%20urlString%3D%22%22%3B%0A%09%09try%20%7B%0A%09%09%09urlString%20%3D%20URL%20%2B%20%22%26location%3D%22%20%2B%20URLEncoder.encode(city%2C%20%22UTF-8%22)%0A%09%09%09%09%09%2B%20%22%26ak%3D%22%20%2B%20APP_KEY%3B%0A%09%09%7D%20catch%20(UnsupportedEncodingException%20e1)%20%7B%0A%09%09%09e1.printStackTrace()%3B%0A%09%09%7D%0A%09%09%0A%09%09try%20%7B%2F%2F%20%E8%8E%B7%E5%8F%96HttpURLConnection%E8%BF%9E%E6%8E%A5%E5%AF%B9%E8%B1%A1%0A%09%09%09URL%20url%20%3D%20new%20URL(urlString)%3B%0A%09%09%09HttpURLConnection%20httpConn%20%3D%20(HttpURLConnection)%20url%0A%09%09%09%09%09.openConnection()%3B%0A%09%09%09%2F%2F%20%E8%AE%BE%E7%BD%AE%E8%BF%9E%E6%8E%A5%E5%B1%9E%E6%80%A7%0A%09%09%09httpConn.setConnectTimeout(8000)%3B%0A%09%09%09httpConn.setDoInput(true)%3B%0A%09%09%09httpConn.setRequestMethod(%22GET%22)%3B%0A%09%09%09%2F%2F%20%E8%8E%B7%E5%8F%96%E7%9B%B8%E5%BA%94%E7%A0%81%0A%09%09%09int%20respCode%20%3D%20httpConn.getResponseCode()%3B%0A%09%09%09if%20(respCode%20%3D%3D%20200)%20%7B%0A%09%09%09%09return%20ConvertStream2Json(httpConn.getInputStream())%3B%0A%09%09%09%7D%0A%09%09%7D%20catch%20(MalformedURLException%20e)%20%7B%0A%09%09%09%2F%2F%20TODO%20Auto-generated%20catch%20block%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%20catch%20(IOException%20e)%20%7B%0A%09%09%09%2F%2F%20TODO%20Auto-generated%20catch%20block%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%0A%09%09return%20%22%22%3B%0A%09%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;String&nbsp;getJsonContent(String&nbsp;city)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;urlString=<span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;urlString&nbsp;=&nbsp;URL&nbsp;+&nbsp;<span class="string">"&amp;location="</span><span>&nbsp;+&nbsp;URLEncoder.encode(city,&nbsp;</span><span class="string">"UTF-8"</span><span>)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;<span class="string">"&amp;ak="</span><span>&nbsp;+&nbsp;APP_KEY;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(UnsupportedEncodingException&nbsp;e1)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e1.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{</span><span class="comment">//&nbsp;获取HttpURLConnection连接对象</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL&nbsp;url&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;URL(urlString);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpURLConnection&nbsp;httpConn&nbsp;=&nbsp;(HttpURLConnection)&nbsp;url&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.openConnection();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;设置连接属性</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;httpConn.setConnectTimeout(<span class="number">8000</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;httpConn.setDoInput(<span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;httpConn.setRequestMethod(<span class="string">"GET"</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;获取相应码</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;respCode&nbsp;=&nbsp;httpConn.getResponseCode();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(respCode&nbsp;==&nbsp;</span><span class="number">200</span><span>)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;ConvertStream2Json(httpConn.getInputStream());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(MalformedURLException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;TODO&nbsp;Auto-generated&nbsp;catch&nbsp;block</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(IOException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;TODO&nbsp;Auto-generated&nbsp;catch&nbsp;block</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;</span><span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="2098265" codeable_type="Blog" source_url="http://gqdy365.iteye.com/blog/2098265" pre_index="0" title="Android json通信（解析）方法" style="display: none;">	public static String getJsonContent(String city) {
+		String urlString="";
+		try {
+			urlString = URL + "&amp;location=" + URLEncoder.encode(city, "UTF-8")
+					+ "&amp;ak=" + APP_KEY;
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {// 获取HttpURLConnection连接对象
+			URL url = new URL(urlString);
+			HttpURLConnection httpConn = (HttpURLConnection) url
+					.openConnection();
+			// 设置连接属性
+			httpConn.setConnectTimeout(8000);
+			httpConn.setDoInput(true);
+			httpConn.setRequestMethod("GET");
+			// 获取相应码
+			int respCode = httpConn.getResponseCode();
+			if (respCode == 200) {
+				return ConvertStream2Json(httpConn.getInputStream());
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
+</pre>
+<br>
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%09private%20static%20String%20ConvertStream2Json(InputStream%20inputStream)%20%7B%0A%09%09String%20jsonStr%20%3D%20%22%22%3B%0A%09%09%2F%2F%20ByteArrayOutputStream%E7%9B%B8%E5%BD%93%E4%BA%8E%E5%86%85%E5%AD%98%E8%BE%93%E5%87%BA%E6%B5%81%0A%09%09ByteArrayOutputStream%20out%20%3D%20new%20ByteArrayOutputStream()%3B%0A%09%09byte%5B%5D%20buffer%20%3D%20new%20byte%5B1024%5D%3B%0A%09%09int%20len%20%3D%200%3B%0A%09%09%2F%2F%20%E5%B0%86%E8%BE%93%E5%85%A5%E6%B5%81%E8%BD%AC%E7%A7%BB%E5%88%B0%E5%86%85%E5%AD%98%E8%BE%93%E5%87%BA%E6%B5%81%E4%B8%AD%0A%09%09try%20%7B%0A%09%09%09while%20((len%20%3D%20inputStream.read(buffer%2C%200%2C%20buffer.length))%20!%3D%20-1)%20%7B%0A%09%09%09%09out.write(buffer%2C%200%2C%20len)%3B%0A%09%09%09%7D%0A%09%09%09%2F%2F%20%E5%B0%86%E5%86%85%E5%AD%98%E6%B5%81%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%0A%09%09%09jsonStr%20%3D%20new%20String(out.toByteArray())%3B%0A%09%09%7D%20catch%20(IOException%20e)%20%7B%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%0A%09%09return%20jsonStr%3B%0A%09%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">private</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;String&nbsp;ConvertStream2Json(InputStream&nbsp;inputStream)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;jsonStr&nbsp;=&nbsp;<span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;ByteArrayOutputStream相当于内存输出流</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayOutputStream&nbsp;out&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;ByteArrayOutputStream();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">byte</span><span>[]&nbsp;buffer&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;</span><span class="keyword">byte</span><span>[</span><span class="number">1024</span><span>];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;len&nbsp;=&nbsp;</span><span class="number">0</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;将输入流转移到内存输出流中</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;((len&nbsp;=&nbsp;inputStream.read(buffer,&nbsp;</span><span class="number">0</span><span>,&nbsp;buffer.length))&nbsp;!=&nbsp;-</span><span class="number">1</span><span>)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.write(buffer,&nbsp;<span class="number">0</span><span>,&nbsp;len);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;将内存流转换为字符串</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonStr&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;String(out.toByteArray());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(IOException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;jsonStr;&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="2098265" codeable_type="Blog" source_url="http://gqdy365.iteye.com/blog/2098265" pre_index="1" title="Android json通信（解析）方法" style="display: none;">	private static String ConvertStream2Json(InputStream inputStream) {
+		String jsonStr = "";
+		// ByteArrayOutputStream相当于内存输出流
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int len = 0;
+		// 将输入流转移到内存输出流中
+		try {
+			while ((len = inputStream.read(buffer, 0, buffer.length)) != -1) {
+				out.write(buffer, 0, len);
+			}
+			// 将内存流转换为字符串
+			jsonStr = new String(out.toByteArray());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return jsonStr;
+	}
+</pre>
+<br>
+<br>2、解析Json字符串：
+<br>Json的解析无外乎Jsonobject、JsonArray，针对服务器返回的具体字符串进行解析，下面只是给了一个例子，例子对应的Json字符串如下：
+<br>
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=result%3A%7B%0A%22error%22%3A0%2C%22status%22%3A%22success%22%2C%22date%22%3A%222014-07-30%22%2C%0A%22results%22%3A%5B%0A%7B%22currentCity%22%3A%22%E5%8C%97%E4%BA%AC%22%2C%22pm25%22%3A%22209%22%2C%0A%22index%22%3A%5B%0A%7B%22title%22%3A%22%E7%A9%BF%E8%A1%A3%22%2C%22zs%22%3A%22%E7%83%AD%22%2C%22tipt%22%3A%22%E7%A9%BF%E8%A1%A3%E6%8C%87%E6%95%B0%22%2C%22des%22%3A%22%E5%A4%A9%E6%B0%94%E7%83%AD%EF%BC%8C%E5%BB%BA%E8%AE%AE%E7%9D%80%E7%9F%AD%E8%A3%99%E3%80%81%E7%9F%AD%E8%A3%A4%E3%80%81%E7%9F%AD%E8%96%84%E5%A4%96%E5%A5%97%E3%80%81T%E6%81%A4%E7%AD%89%E5%A4%8F%E5%AD%A3%E6%9C%8D%E8%A3%85%E3%80%82%22%7D%2C%0A%7B%22title%22%3A%22%E6%B4%97%E8%BD%A6%22%2C%22zs%22%3A%22%E4%B8%8D%E5%AE%9C%22%2C%22tipt%22%3A%22%E6%B4%97%E8%BD%A6%E6%8C%87%E6%95%B0%22%2C%22des%22%3A%22%E4%B8%8D%E5%AE%9C%E6%B4%97%E8%BD%A6%EF%BC%8C%E8%B7%AF%E9%9D%A2%E7%A7%AF%E6%B0%B4%E8%BE%83%E5%A4%9A%EF%BC%8C%E4%B8%8D%E5%AE%9C%E6%93%A6%E6%B4%97%E6%B1%BD%E8%BD%A6%E3%80%82%E5%A6%82%E6%9E%9C%E6%89%A7%E6%84%8F%E6%93%A6%E6%B4%97%EF%BC%8C%E8%A6%81%E5%81%9A%E5%A5%BD%E6%BA%85%E4%B8%8A%E6%B3%A5%E6%B0%B4%E7%9A%84%E5%BF%83%E7%90%86%E5%87%86%E5%A4%87%E3%80%82%22%7D%2C%0A%7B%22title%22%3A%22%E6%84%9F%E5%86%92%22%2C%22zs%22%3A%22%E8%BE%83%E6%98%93%E5%8F%91%22%2C%22tipt%22%3A%22%E6%84%9F%E5%86%92%E6%8C%87%E6%95%B0%22%2C%22des%22%3A%22%E7%9B%B8%E5%AF%B9%E4%BB%8A%E5%A4%A9%E5%87%BA%E7%8E%B0%E4%BA%86%E8%BE%83%E5%A4%A7%E5%B9%85%E5%BA%A6%E9%99%8D%E6%B8%A9%EF%BC%8C%E8%BE%83%E6%98%93%E5%8F%91%E7%94%9F%E6%84%9F%E5%86%92%EF%BC%8C%E4%BD%93%E8%B4%A8%E8%BE%83%E5%BC%B1%E7%9A%84%E6%9C%8B%E5%8F%8B%E8%AF%B7%E6%B3%A8%E6%84%8F%E9%80%82%E5%BD%93%E9%98%B2%E6%8A%A4%E3%80%82%22%7D%2C%0A%7B%22title%22%3A%22%E8%BF%90%E5%8A%A8%22%2C%22zs%22%3A%22%E8%BE%83%E9%80%82%E5%AE%9C%22%2C%22tipt%22%3A%22%E8%BF%90%E5%8A%A8%E6%8C%87%E6%95%B0%22%2C%22des%22%3A%22%E9%98%B4%E5%A4%A9%EF%BC%8C%E8%BE%83%E9%80%82%E5%AE%9C%E8%BF%9B%E8%A1%8C%E5%90%84%E7%A7%8D%E6%88%B7%E5%86%85%E5%A4%96%E8%BF%90%E5%8A%A8%E3%80%82%22%7D%2C%0A%7B%22title%22%3A%22%E7%B4%AB%E5%A4%96%E7%BA%BF%E5%BC%BA%E5%BA%A6%22%2C%22zs%22%3A%22%E5%BC%B1%22%2C%22tipt%22%3A%22%E7%B4%AB%E5%A4%96%E7%BA%BF%E5%BC%BA%E5%BA%A6%E6%8C%87%E6%95%B0%22%2C%22des%22%3A%22%E7%B4%AB%E5%A4%96%E7%BA%BF%E5%BC%BA%E5%BA%A6%E8%BE%83%E5%BC%B1%EF%BC%8C%E5%BB%BA%E8%AE%AE%E5%87%BA%E9%97%A8%E5%89%8D%E6%B6%82%E6%93%A6SPF%E5%9C%A812-15%E4%B9%8B%E9%97%B4%E3%80%81PA%2B%E7%9A%84%E9%98%B2%E6%99%92%E6%8A%A4%E8%82%A4%E5%93%81%E3%80%82%22%7D%5D%2C%0A%22weather_data%22%3A%5B%0A%7B%22date%22%3A%22%E5%91%A8%E4%B8%89%2007%E6%9C%8830%E6%97%A5%20(%E5%AE%9E%E6%97%B6%EF%BC%9A23%E2%84%83)%22%2C%22dayPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fday%2Fduoyun.png%22%2C%22nightPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fnight%2Fduoyun.png%22%2C%22weather%22%3A%22%E5%A4%9A%E4%BA%91%22%2C%22wind%22%3A%22%E5%BE%AE%E9%A3%8E%22%2C%22temperature%22%3A%2229%20~%2024%E2%84%83%22%7D%2C%0A%7B%22date%22%3A%22%E5%91%A8%E5%9B%9B%22%2C%22dayPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fday%2Fqing.png%22%2C%22nightPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fnight%2Fqing.png%22%2C%22weather%22%3A%22%E6%99%B4%22%2C%22wind%22%3A%22%E5%BE%AE%E9%A3%8E%22%2C%22temperature%22%3A%2231%20~%2024%E2%84%83%22%7D%2C%0A%7B%22date%22%3A%22%E5%91%A8%E4%BA%94%22%2C%22dayPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fday%2Fduoyun.png%22%2C%22nightPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fnight%2Fduoyun.png%22%2C%22weather%22%3A%22%E5%A4%9A%E4%BA%91%22%2C%22wind%22%3A%22%E5%BE%AE%E9%A3%8E%22%2C%22temperature%22%3A%2234%20~%2025%E2%84%83%22%7D%2C%0A%7B%22date%22%3A%22%E5%91%A8%E5%85%AD%22%2C%22dayPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fday%2Fqing.png%22%2C%22nightPictureUrl%22%3A%22http%3A%2F%2Fapi.map.baidu.com%2Fimages%2Fweather%2Fnight%2Fqing.png%22%2C%22weather%22%3A%22%E6%99%B4%22%2C%22wind%22%3A%22%E5%BE%AE%E9%A3%8E%22%2C%22temperature%22%3A%2234%20~%2024%E2%84%83%22%7D%0A%5D%0A%7D%0A%5D%0A%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>result:{&nbsp;&nbsp;</span></span></li><li><span><span class="string">"error"</span><span>:</span><span class="number">0</span><span>,</span><span class="string">"status"</span><span>:</span><span class="string">"success"</span><span>,</span><span class="string">"date"</span><span>:</span><span class="string">"2014-07-30"</span><span>,&nbsp;&nbsp;</span></span></li><li><span><span class="string">"results"</span><span>:[&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"currentCity"</span><span>:</span><span class="string">"北京"</span><span>,</span><span class="string">"pm25"</span><span>:</span><span class="string">"209"</span><span>,&nbsp;&nbsp;</span></span></li><li><span><span class="string">"index"</span><span>:[&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"title"</span><span>:</span><span class="string">"穿衣"</span><span>,</span><span class="string">"zs"</span><span>:</span><span class="string">"热"</span><span>,</span><span class="string">"tipt"</span><span>:</span><span class="string">"穿衣指数"</span><span>,</span><span class="string">"des"</span><span>:</span><span class="string">"天气热，建议着短裙、短裤、短薄外套、T恤等夏季服装。"</span><span>},&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"title"</span><span>:</span><span class="string">"洗车"</span><span>,</span><span class="string">"zs"</span><span>:</span><span class="string">"不宜"</span><span>,</span><span class="string">"tipt"</span><span>:</span><span class="string">"洗车指数"</span><span>,</span><span class="string">"des"</span><span>:</span><span class="string">"不宜洗车，路面积水较多，不宜擦洗汽车。如果执意擦洗，要做好溅上泥水的心理准备。"</span><span>},&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"title"</span><span>:</span><span class="string">"感冒"</span><span>,</span><span class="string">"zs"</span><span>:</span><span class="string">"较易发"</span><span>,</span><span class="string">"tipt"</span><span>:</span><span class="string">"感冒指数"</span><span>,</span><span class="string">"des"</span><span>:</span><span class="string">"相对今天出现了较大幅度降温，较易发生感冒，体质较弱的朋友请注意适当防护。"</span><span>},&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"title"</span><span>:</span><span class="string">"运动"</span><span>,</span><span class="string">"zs"</span><span>:</span><span class="string">"较适宜"</span><span>,</span><span class="string">"tipt"</span><span>:</span><span class="string">"运动指数"</span><span>,</span><span class="string">"des"</span><span>:</span><span class="string">"阴天，较适宜进行各种户内外运动。"</span><span>},&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"title"</span><span>:</span><span class="string">"紫外线强度"</span><span>,</span><span class="string">"zs"</span><span>:</span><span class="string">"弱"</span><span>,</span><span class="string">"tipt"</span><span>:</span><span class="string">"紫外线强度指数"</span><span>,</span><span class="string">"des"</span><span>:</span><span class="string">"紫外线强度较弱，建议出门前涂擦SPF在12-15之间、PA+的防晒护肤品。"</span><span>}],&nbsp;&nbsp;</span></span></li><li><span><span class="string">"weather_data"</span><span>:[&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"date"</span><span>:</span><span class="string">"周三&nbsp;07月30日&nbsp;(实时：23℃)"</span><span>,</span><span class="string">"dayPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/day/duoyun.png"</span><span>,</span><span class="string">"nightPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/night/duoyun.png"</span><span>,</span><span class="string">"weather"</span><span>:</span><span class="string">"多云"</span><span>,</span><span class="string">"wind"</span><span>:</span><span class="string">"微风"</span><span>,</span><span class="string">"temperature"</span><span>:</span><span class="string">"29&nbsp;~&nbsp;24℃"</span><span>},&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"date"</span><span>:</span><span class="string">"周四"</span><span>,</span><span class="string">"dayPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/day/qing.png"</span><span>,</span><span class="string">"nightPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/night/qing.png"</span><span>,</span><span class="string">"weather"</span><span>:</span><span class="string">"晴"</span><span>,</span><span class="string">"wind"</span><span>:</span><span class="string">"微风"</span><span>,</span><span class="string">"temperature"</span><span>:</span><span class="string">"31&nbsp;~&nbsp;24℃"</span><span>},&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"date"</span><span>:</span><span class="string">"周五"</span><span>,</span><span class="string">"dayPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/day/duoyun.png"</span><span>,</span><span class="string">"nightPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/night/duoyun.png"</span><span>,</span><span class="string">"weather"</span><span>:</span><span class="string">"多云"</span><span>,</span><span class="string">"wind"</span><span>:</span><span class="string">"微风"</span><span>,</span><span class="string">"temperature"</span><span>:</span><span class="string">"34&nbsp;~&nbsp;25℃"</span><span>},&nbsp;&nbsp;</span></span></li><li><span>{<span class="string">"date"</span><span>:</span><span class="string">"周六"</span><span>,</span><span class="string">"dayPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/day/qing.png"</span><span>,</span><span class="string">"nightPictureUrl"</span><span>:</span><span class="string">"http://api.map.baidu.com/images/weather/night/qing.png"</span><span>,</span><span class="string">"weather"</span><span>:</span><span class="string">"晴"</span><span>,</span><span class="string">"wind"</span><span>:</span><span class="string">"微风"</span><span>,</span><span class="string">"temperature"</span><span>:</span><span class="string">"34&nbsp;~&nbsp;24℃"</span><span>}&nbsp;&nbsp;</span></span></li><li><span>]&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li><li><span>]&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="2098265" codeable_type="Blog" source_url="http://gqdy365.iteye.com/blog/2098265" pre_index="2" title="Android json通信（解析）方法" style="display: none;">result:{
+"error":0,"status":"success","date":"2014-07-30",
+"results":[
+{"currentCity":"北京","pm25":"209",
+"index":[
+{"title":"穿衣","zs":"热","tipt":"穿衣指数","des":"天气热，建议着短裙、短裤、短薄外套、T恤等夏季服装。"},
+{"title":"洗车","zs":"不宜","tipt":"洗车指数","des":"不宜洗车，路面积水较多，不宜擦洗汽车。如果执意擦洗，要做好溅上泥水的心理准备。"},
+{"title":"感冒","zs":"较易发","tipt":"感冒指数","des":"相对今天出现了较大幅度降温，较易发生感冒，体质较弱的朋友请注意适当防护。"},
+{"title":"运动","zs":"较适宜","tipt":"运动指数","des":"阴天，较适宜进行各种户内外运动。"},
+{"title":"紫外线强度","zs":"弱","tipt":"紫外线强度指数","des":"紫外线强度较弱，建议出门前涂擦SPF在12-15之间、PA+的防晒护肤品。"}],
+"weather_data":[
+{"date":"周三 07月30日 (实时：23℃)","dayPictureUrl":"http://api.map.baidu.com/images/weather/day/duoyun.png","nightPictureUrl":"http://api.map.baidu.com/images/weather/night/duoyun.png","weather":"多云","wind":"微风","temperature":"29 ~ 24℃"},
+{"date":"周四","dayPictureUrl":"http://api.map.baidu.com/images/weather/day/qing.png","nightPictureUrl":"http://api.map.baidu.com/images/weather/night/qing.png","weather":"晴","wind":"微风","temperature":"31 ~ 24℃"},
+{"date":"周五","dayPictureUrl":"http://api.map.baidu.com/images/weather/day/duoyun.png","nightPictureUrl":"http://api.map.baidu.com/images/weather/night/duoyun.png","weather":"多云","wind":"微风","temperature":"34 ~ 25℃"},
+{"date":"周六","dayPictureUrl":"http://api.map.baidu.com/images/weather/day/qing.png","nightPictureUrl":"http://api.map.baidu.com/images/weather/night/qing.png","weather":"晴","wind":"微风","temperature":"34 ~ 24℃"}
+]
+}
+]
+}
+</pre>
+<br>
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%09public%20static%20int%20getJsonResult(String%20result)%20%7B%0A%09%09int%20resultError%20%3D%200%3B%0A%09%09Map%3CString%2C%20String%3E%20reslutMap%20%3D%20new%20HashMap%3CString%2C%20String%3E()%3B%0A%09%09try%20%7B%0A%09%09%09JSONObject%20jObject%20%3D%20new%20JSONObject(result)%3B%0A%09%09%09%2F%2F%E8%BF%94%E5%9B%9E%E9%94%99%E8%AF%AF%E7%A0%81%2C0%E4%B8%BA%E6%AD%A3%E5%B8%B8%EF%BC%8C%E5%85%B6%E4%BB%96%E8%AF%B7%E6%9F%A5%E8%AF%A2%E7%8A%B6%E6%80%81%E8%A1%A8%3B%0A%09%09%09resultError%20%3D%20Integer.valueOf(jObject.get(%22error%22).toString())%3B%0A%09%09%09%0A%09%09%09%2F%2F%E7%BD%91%E7%BB%9C%E6%97%B6%E9%97%B4%0A%09%09%09NET_DATE%20%3D%20jObject.get(%22date%22).toString()%3B%0A%09%09%09%0A%09%09%09JSONArray%20jArray%20%3D%20new%20JSONArray(jObject.get(%22results%22).toString())%3B%0A%09%09%09JSONObject%20jaObject%20%3D%20jArray.getJSONObject(0)%3B%0A%0A%09%09%09%2F%2F%E5%BD%93%E5%89%8D%E5%9F%8E%E5%B8%82%0A%09%09%09NET_CITY%20%3D%20jaObject.get(%22currentCity%22).toString()%3B%0A%09%09%09NET_PM25%20%3D%20jaObject.get(%22pm25%22).toString()%3B%0A%09%09%09%0A%09%09%09%2F%2F%E6%8C%87%E6%95%B0%0A%09%09%09indexList.clear()%3B%0A%09%09%09JSONArray%20indexArray%20%3D%20new%20JSONArray(jaObject.get(%22index%22)%0A%09%09%09%09%09.toString())%3B%0A%09%09%09for%20(int%20i%20%3D%200%3B%20i%20%3C%20indexArray.length()%3B%20i%2B%2B)%20%7B%0A%09%09%09%09JSONObject%20indexObject%20%3D%20indexArray.getJSONObject(i)%3B%0A%09%09%09%09IndexEntity%20index%20%3D%20new%20IndexEntity()%3B%0A%09%09%09%09index.setTitle(indexObject.get(%22title%22).toString())%3B%0A%09%09%09%09index.setZs(indexObject.get(%22zs%22).toString())%3B%0A%09%09%09%09index.setTipt(indexObject.get(%22tipt%22).toString())%3B%0A%09%09%09%09index.setDes(indexObject.get(%22des%22).toString())%3B%0A%09%09%09%09indexList.add(index)%3B%0A%09%09%09%7D%0A%09%09%09%0A%0A%09%09%09%2F%2F%E5%A4%A9%E6%B0%94%0A%09%09%09weatherList.clear()%3B%0A%09%09%09JSONArray%20weatherArray%20%3D%20new%20JSONArray(jaObject.get(%22weather_data%22)%0A%09%09%09%09%09.toString())%3B%0A%09%09%09for%20(int%20i%20%3D%200%3B%20i%20%3C%20weatherArray.length()%3B%20i%2B%2B)%20%7B%0A%09%09%09%09JSONObject%20weatherObject%20%3D%20weatherArray.getJSONObject(i)%3B%0A%09%09%09%09WeatherEntity%20weather%20%3D%20new%20WeatherEntity()%3B%0A%09%09%09%09weather.setDate(weatherObject.get(%22date%22).toString())%3B%0A%09%09%09%09weather.setDayPictureUrl(weatherObject.get(%22dayPictureUrl%22)%0A%09%09%09%09%09%09.toString())%3B%0A%09%09%09%09weather.setNightPictureUrl(weatherObject.get(%22nightPictureUrl%22)%0A%09%09%09%09%09%09.toString())%3B%0A%09%09%09%09weather.setWeather(weatherObject.get(%22weather%22).toString())%3B%0A%09%09%09%09weather.setWind(weatherObject.get(%22wind%22).toString())%3B%0A%09%09%09%09weather.setTemperature(weatherObject.get(%22temperature%22)%0A%09%09%09%09%09%09.toString())%3B%0A%09%09%09%09weatherList.add(weather)%3B%0A%09%09%09%7D%0A%09%09%7D%20catch%20(JSONException%20e)%20%7B%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%0A%0A%09%09return%20resultError%3B%0A%09%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;getJsonResult(String&nbsp;result)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;resultError&nbsp;=&nbsp;</span><span class="number">0</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Map&lt;String,&nbsp;String&gt;&nbsp;reslutMap&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;HashMap&lt;String,&nbsp;String&gt;();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONObject&nbsp;jObject&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;JSONObject(result);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//返回错误码,0为正常，其他请查询状态表;</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultError&nbsp;=&nbsp;Integer.valueOf(jObject.get(<span class="string">"error"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//网络时间</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NET_DATE&nbsp;=&nbsp;jObject.get(<span class="string">"date"</span><span>).toString();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONArray&nbsp;jArray&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;JSONArray(jObject.get(</span><span class="string">"results"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONObject&nbsp;jaObject&nbsp;=&nbsp;jArray.getJSONObject(<span class="number">0</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//当前城市</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NET_CITY&nbsp;=&nbsp;jaObject.get(<span class="string">"currentCity"</span><span>).toString();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NET_PM25&nbsp;=&nbsp;jaObject.get(<span class="string">"pm25"</span><span>).toString();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//指数</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indexList.clear();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONArray&nbsp;indexArray&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;JSONArray(jaObject.get(</span><span class="string">"index"</span><span>)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.toString());&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="keyword">int</span><span>&nbsp;i&nbsp;=&nbsp;</span><span class="number">0</span><span>;&nbsp;i&nbsp;&lt;&nbsp;indexArray.length();&nbsp;i++)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONObject&nbsp;indexObject&nbsp;=&nbsp;indexArray.getJSONObject(i);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IndexEntity&nbsp;index&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;IndexEntity();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.setTitle(indexObject.get(<span class="string">"title"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.setZs(indexObject.get(<span class="string">"zs"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.setTipt(indexObject.get(<span class="string">"tipt"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.setDes(indexObject.get(<span class="string">"des"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indexList.add(index);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//天气</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weatherList.clear();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONArray&nbsp;weatherArray&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;JSONArray(jaObject.get(</span><span class="string">"weather_data"</span><span>)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.toString());&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="keyword">int</span><span>&nbsp;i&nbsp;=&nbsp;</span><span class="number">0</span><span>;&nbsp;i&nbsp;&lt;&nbsp;weatherArray.length();&nbsp;i++)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONObject&nbsp;weatherObject&nbsp;=&nbsp;weatherArray.getJSONObject(i);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WeatherEntity&nbsp;weather&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;WeatherEntity();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weather.setDate(weatherObject.get(<span class="string">"date"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weather.setDayPictureUrl(weatherObject.get(<span class="string">"dayPictureUrl"</span><span>)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.toString());&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weather.setNightPictureUrl(weatherObject.get(<span class="string">"nightPictureUrl"</span><span>)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.toString());&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weather.setWeather(weatherObject.get(<span class="string">"weather"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weather.setWind(weatherObject.get(<span class="string">"wind"</span><span>).toString());&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weather.setTemperature(weatherObject.get(<span class="string">"temperature"</span><span>)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.toString());&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weatherList.add(weather);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(JSONException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;resultError;&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="2098265" codeable_type="Blog" source_url="http://gqdy365.iteye.com/blog/2098265" pre_index="3" title="Android json通信（解析）方法" style="display: none;">	public static int getJsonResult(String result) {
+		int resultError = 0;
+		Map&lt;String, String&gt; reslutMap = new HashMap&lt;String, String&gt;();
+		try {
+			JSONObject jObject = new JSONObject(result);
+			//返回错误码,0为正常，其他请查询状态表;
+			resultError = Integer.valueOf(jObject.get("error").toString());
+			
+			//网络时间
+			NET_DATE = jObject.get("date").toString();
+			
+			JSONArray jArray = new JSONArray(jObject.get("results").toString());
+			JSONObject jaObject = jArray.getJSONObject(0);
+
+			//当前城市
+			NET_CITY = jaObject.get("currentCity").toString();
+			NET_PM25 = jaObject.get("pm25").toString();
+			
+			//指数
+			indexList.clear();
+			JSONArray indexArray = new JSONArray(jaObject.get("index")
+					.toString());
+			for (int i = 0; i &lt; indexArray.length(); i++) {
+				JSONObject indexObject = indexArray.getJSONObject(i);
+				IndexEntity index = new IndexEntity();
+				index.setTitle(indexObject.get("title").toString());
+				index.setZs(indexObject.get("zs").toString());
+				index.setTipt(indexObject.get("tipt").toString());
+				index.setDes(indexObject.get("des").toString());
+				indexList.add(index);
+			}
+			
+
+			//天气
+			weatherList.clear();
+			JSONArray weatherArray = new JSONArray(jaObject.get("weather_data")
+					.toString());
+			for (int i = 0; i &lt; weatherArray.length(); i++) {
+				JSONObject weatherObject = weatherArray.getJSONObject(i);
+				WeatherEntity weather = new WeatherEntity();
+				weather.setDate(weatherObject.get("date").toString());
+				weather.setDayPictureUrl(weatherObject.get("dayPictureUrl")
+						.toString());
+				weather.setNightPictureUrl(weatherObject.get("nightPictureUrl")
+						.toString());
+				weather.setWeather(weatherObject.get("weather").toString());
+				weather.setWind(weatherObject.get("wind").toString());
+				weather.setTemperature(weatherObject.get("temperature")
+						.toString());
+				weatherList.add(weather);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return resultError;
+	}
+</pre>
+  </div>
+
+  
+
+
+  
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://gqdy365.iteye.com/blog/2100803" class="next" title="Android汉字按拼音首字母查询">Android汉字按拼音首字母查询</a>
+      |
+      <a href="http://gqdy365.iteye.com/blog/2096433" class="pre" title="Android ListView 滚动的N种方法">Android ListView 滚动的N种方法</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2014-07-30 14:17</li>
+      <li>浏览 56</li>
+      <li><a href="http://gqdy365.iteye.com/blog/2098265#comments">评论(0)</a></li>
+      
+      
+        <li><a href="http://gqdy365.iteye.com/admin/link?user_favorite%5Btitle%5D=Android+json%E9%80%9A%E4%BF%A1%EF%BC%88%E8%A7%A3%E6%9E%90%EF%BC%89%E6%96%B9%E6%B3%95&user_favorite%5Burl%5D=http%3A%2F%2Fgqdy365.iteye.com%2Fblog%2F2098265" target="_blank" class="favorite" onclick="$$(&#39;.favorite_form_spinner&#39;)[0].show();new Ajax.Request(&#39;/admin/link/new_xhr?user_favorite%5Btitle%5D=Android+json%E9%80%9A%E4%BF%A1%EF%BC%88%E8%A7%A3%E6%9E%90%EF%BC%89%E6%96%B9%E6%B3%95&amp;user_favorite%5Burl%5D=http%3A%2F%2Fgqdy365.iteye.com%2Fblog%2F2098265&#39;, {method: &#39;get&#39;, onSuccess: function(response){$(document.getElementsByTagName(&#39;body&#39;)[0]).insert({bottom:response.responseText});$$(&#39;.favorite_form_spinner&#39;)[0].hide();}});return false;">收藏</a><img alt="Spinner" class="favorite_form_spinner" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/spinner(1).gif" style="vertical-align:bottom;margin-left:7px;display:none;"></li>
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/mobile">移动开发</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/2098265" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <form action="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站.html" id="comment_form" method="post" onsubmit="return false;"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="woLksltZuqMQR6XCKWa2xo3pSzDdEO8zokaLwkV7X0o="></div>          
+
+
+  <input type="hidden" id="editor_bbcode_flag" value="true">
+
+
+
+<div id="editor_main"><div id="editor_wrapper" class="clearfix"><div id="bbcode_emotions"><h5>表情图标</h5><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_biggrin.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_smile.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_sad.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_surprised.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_eek.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_confused.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_cool.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_lol.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_mad.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_razz.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_redface.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_cry.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_evil.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_twisted.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_rolleyes.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_wink.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_exclaim.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_question.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_idea.gif"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_arrow.gif"></div><div id="bbcode_controllers"><div id="bbcode_toolbar"><input type="button" value="B" id="button_bold"><input type="button" value="I" id="button_italic"><input type="button" value="U" id="button_underline"><input type="button" value="Quote"><input type="button" value="Code"><input type="button" value="List"><input type="button" value="Img"><input type="button" value="URL"><input type="button" value="Flash"><input type="button" value="Table"><br>字体颜色: <select id="select_color"><option value="black" style="color: black;">标准</option><option value="darkred" style="color: darkred;">深红</option><option value="red" style="color: red;">红色</option><option value="orange" style="color: orange;">橙色</option><option value="brown" style="color: brown;">棕色</option><option value="yellow" style="color: yellow;">黄色</option><option value="green" style="color: green;">绿色</option><option value="olive" style="color: olive;">橄榄</option><option value="cyan" style="color: cyan;">青色</option><option value="blue" style="color: blue;">蓝色</option><option value="darkblue" style="color: darkblue;">深蓝</option><option value="indigo" style="color: indigo;">靛蓝</option><option value="violet" style="color: violet;">紫色</option><option value="gray" style="color: gray;">灰色</option><option value="white" style="color: white;">白色</option><option value="black" style="color: black;">黑色</option></select>&nbsp;字体大小: <select id="select_font"><option value="0">标准</option><option value="xx-small">1 (xx-small)</option><option value="x-small">2 (x-small)</option><option value="small">3 (small)</option><option value="medium">4 (medium)</option><option value="large">5 (large)</option><option value="x-large">6 (x-large)</option><option value="xx-large">7 (xx-large)</option></select>&nbsp;对齐: <select id="select_align"><option value="0">标准</option><option value="left">居左</option><option value="center">居中</option><option value="right">居右</option></select></div><div id="bbcode_tooltip">插入URL: [url]http://url[/url] 或 [url=http://url]URL文字[/url]  (alt+w)</div><textarea class="validate-richeditor bad-words min-length-5" cols="40" id="editor_body" name="comment[body]" rows="20" style="width: 500px; height: 350px;"></textarea></div></div></div>
+
+
+<script type="text/javascript">
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</script>
+
+          <p style="text-align:right;margin-right:30px;">(快捷键 Alt+S / Ctrl+Enter) <input class="submit" id="quick_reply_button" name="commit" type="submit" value="提交"></p>
+       </form>
+        <script type="text/javascript">
+          new HotKey("s",function() {$('quick_reply_button').click();},{altKey: true, ctrlKey: false});
+          new HotKey(new Number(13),function() {$('quick_reply_button').click();},{altKey: false, ctrlKey: true});
+
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+            if(result) {
+              new Ajax.Request('/blog/create_comment/2098265', {
+                onFailure:function(response){
+                  $('comments').insert({after:response.responseText})
+                  form.spinner.hide();
+                  Element.scrollTo($('comments'));
+                },
+                onSuccess:function(response){
+                  Element.scrollTo($('comments'));
+                  var new_comment = new Element('div', {}).update(response.responseText).firstChild;
+                  var comment_id = new_comment.readAttribute('id');
+
+                  $('comments').insert({after:response.responseText});
+                  $('editor_body').value = "";
+
+                  var css_rules = '#' + comment_id + ' pre';
+                  highlightNewAddContent(css_rules);
+                  processComment();
+                  code_favorites_init(css_rules);
+                  
+                  form.spinner.hide();
+                }, parameters:Form.serialize(form)
+              });
+            }
+        }});
+        </script>
+        </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 2098265;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'Android json通信（解析）方法');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'Android json通信（解析）方法');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://gqdy365.iteye.com/"><img alt="gqdy365的博客" class="logo" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/28c74a3f-6a81-381f-8d6b-cc2ebc46b36f.png" title="gqdy365的博客: 沉淀之路—Android" width=""></a></div>
+  <div id="blog_owner_name">gqdy365</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 230176 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 深圳</li>
+              <li><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/offline.gif"></li>
+              
+                <li>
+                  <a href="http://my.iteye.com/messages/new?message%5Breceiver_name%5D=gqdy365" class="message" title="发送站内短信">发短消息</a>
+                  
+                    <a href="http://my.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=gqdy365" class="subscription" onclick="var f = document.createElement(&#39;form&#39;); f.style.display = &#39;none&#39;; this.parentNode.appendChild(f); f.method = &#39;POST&#39;; f.action = this.href;var s = document.createElement(&#39;input&#39;); s.setAttribute(&#39;type&#39;, &#39;hidden&#39;); s.setAttribute(&#39;name&#39;, &#39;authenticity_token&#39;); s.setAttribute(&#39;value&#39;, &#39;woLksltZuqMQR6XCKWa2xo3pSzDdEO8zokaLwkV7X0o=&#39;); f.appendChild(s);f.submit();return false;">关注</a>
+                  
+                </li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://gqdy365.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://yuyutao.iteye.com/" target="_blank"><img alt="yuyutao的博客" class="logo" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="yuyutao的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://yuyutao.iteye.com/" target="_blank" title="yuyutao">yuyutao</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://z574671440.iteye.com/" target="_blank"><img alt="z574671440的博客" class="logo" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="z574671440的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://z574671440.iteye.com/" target="_blank" title="z574671440">z574671440</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://xjh425323.iteye.com/" target="_blank"><img alt="xjh425323的博客" class="logo" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="xjh425323的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://xjh425323.iteye.com/" target="_blank" title="xjh425323">xjh425323</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://lipi042222.iteye.com/" target="_blank"><img alt="lipi042222的博客" class="logo" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="lipi042222的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://lipi042222.iteye.com/" target="_blank" title="lipi042222">lipi042222</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://gqdy365.iteye.com/">全部博客 (87)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/119113">android Launcher (16)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/141735">收藏夹 (5)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/151647">UI布局 (24)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/157791">J2EE (2)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/163561">android网络编程 (7)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/186916">项目经理是熬出来的 (7)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/221700">Android图像处理 (5)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/226738">系统层开发 (7)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/298104">数据库 (1)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/319818">程序员是熬出来的 (3)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/320205">Android技巧 (6)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/321397">地图相关 (1)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/321586">Android底层 (1)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/322248">Android疑难杂症 (2)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/323218">开发工具 (3)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/324847">知识梳理 (2)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/324911">源码阅读 (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://gqdy365.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://gqdy365.iteye.com/blog/post">我的论坛</a> (8)
+                </li>
+                <li><a href="http://gqdy365.iteye.com/blog/answered_problems">我的问答</a> (1)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://gqdy365.iteye.com/blog/monthblog/2014-10">2014-10</a> (3)</li>
+                
+                  <li><a href="http://gqdy365.iteye.com/blog/monthblog/2014-09">2014-09</a> (14)</li>
+                
+                  <li><a href="http://gqdy365.iteye.com/blog/monthblog/2014-08">2014-08</a> (9)</li>
+                
+                <li><a href="http://gqdy365.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+              <div id="comments_top">
+                <h5>评论排行榜</h5>
+                <ul>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2104046" title="Android 网页抓取（实现新闻客户端）">Android 网页抓取（实现新闻客户端）</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2111668" title="想做项目经理？这些工具必须了解">想做项目经理？这些工具必须了解</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2114968" title="Android ViewPager切换的N种动画">Android ViewPager切换的N种动画</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/1978281" title="Android应用程序数据库版本升级">Android应用程序数据库版本升级</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2002488" title="Android中文按拼音排序">Android中文按拼音排序</a></li>
+                  
+                </ul>
+              </div>
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://gqdy365.iteye.com/" target="_blank" title="gqdy365">gqdy365</a>： 
+                  chuguoyu330449681 写道博主，我已经等您了三天 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360768">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://chuguoyu330449681.iteye.com/" target="_blank" title="chuguoyu330449681">chuguoyu330449681</a>： 
+                  博主，我已经等您了三天了，我真的很需要您的新闻客户端源码，谢谢 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360551">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://chuguoyu330449681.iteye.com/" target="_blank" title="chuguoyu330449681">chuguoyu330449681</a>： 
+                  我也想要，谢谢，330449681@qq.com<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360550">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://gqdy365.iteye.com/" target="_blank" title="gqdy365">gqdy365</a>： 
+                  dede123456789 写道博主，在你万忙的时候，抽出一会 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360386">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://dede123456789.iteye.com/" target="_blank" title="dede123456789">dede123456789</a>： 
+                  博主，在你万忙的时候，抽出一会时间，送我一份新闻app的源码好 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360334">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2014 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=676082' width='0' height='0' />");
+</script><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/saved_resource" width="0" height="0">
+
+<script src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/tracking.js" type="text/javascript"></script>
+
+    
+<script type="text/javascript" src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/tongji.js"></script><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/tongji.do" border="0" width="1" height="1"><a href="http://tongji.linezing.com/report.html?unit_id=3500918" target="_blank"><img src="./Android json通信（解析）方法 - 沉淀之路—Android - ITeye技术网站_files/icon1.gif" border="0" alt="量子统计"></a>
+      
+    
+  
+
+</body></html>

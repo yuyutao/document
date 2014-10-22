@@ -1,0 +1,859 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0064)http://blog.csdn.net/weihan1314/article/details/7997421#comments -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" async="" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ga.js"></script><script id="allmobilize" charset="utf-8" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/allmobilize.min.js"></script><style type="text/css"></style>
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/weihan1314/article/details/7997421#">
+
+    <title>Android4.0-Fragment框架实现方式剖析（一） - Inspiration
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="经过反复的学习对比，个人觉得带着问题学习新知是最有效的学习方式，因此文本就以提问的方式来讲述Fragment框架实现方式。1、什么是Fragment？Fragment包含在Activity中，Fragment只能存在于Activity的上下文（context）内，没有Activity就无法使用Fragment，因此Fragment只能在Activity的上下文（context）创建。Fra">
+    <script src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">
+        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/weihan1314/rss/list">
+    <link rel="shortcut icon" href="http://csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+
+<script src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/share.js"></script><link href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><script type="text/javascript" charset="utf-8" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/tracking.js"></script><script type="text/javascript" charset="utf-8" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/main.js"></script><link rel="stylesheet" type="text/css" href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/style(1).css"><link rel="stylesheet" type="text/css" href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/style(2).css"><script src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/logger.js"></script><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_style0_16.css?v=89a7173d.css"></head>
+<body><iframe frameborder="0" style="display: none;"></iframe>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" target="_blank" class="img blog-icon"></a></div>          <div class="pull-right login-wrap ">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="https://passport.csdn.net/account/register?ref=toolbar">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display: none;" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"><div class="icon-hasnotes" style="display: none;"></div></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note" style="display: none; left: -212px; top: 4379px;">                      <div class="box"><div class="notifications notice_list_con curr">  <div class="menu_title">    <span class="title"><a href="http://msg.csdn.net/" target="_blank" class="read_all">全部设为已读</a><a href="http://msg.csdn.net/" target="_blank" class="go_all">查看所有通知</a></span>  </div>  <div class="loading"></div>  <div class="empty">暂没有新通知</div>  <div class="notice_content"></div></div><div class="notifications detail_con" style="display: none">  <div class="menu_title">    <span class="title">      <a class="go_back" href="javascript:void 0;">返回通知列表</a>      <a class="notifications_page_none nextnote" href="javascript:void 0;">下一条</a>      <a class="notifications_page prvnote" href="javascript:void 0;">上一条</a>    </span>  </div>  <div class="notice_content"></div></div><div class="error"></div></div>                    <iframe src="about:block" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt><a href="http://share.csdn.net/slides/new?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/2_lt3432435811.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/2_lt3432435811.jpg"></a></dt>                        <dd class="info"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname">lt3432435811</a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-right "><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd><a href="http://share.csdn.net/?ref=toolbar" target="_blank">Share</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/weihan1314">Inspiration</a></h2>
+            <h3>做技术的关键是思想、方法、架构——Clear</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+                <li id="btnContents"><a href="http://blog.csdn.net/weihan1314?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/weihan1314?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/weihan1314/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "weihan1314";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/weihan1314";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "lt3432435811";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://bbs.csdn.net/topics/390812950?page=2#post-398116601" target="_blank">
+<font color="blue">博客专家福利
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/40181275" target="_blank">
+<font color="red">公告：CSDN博客积分系统升级</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/40047403" target="_blank">
+<font color="blue">有奖试读&amp;征文:我们在互联网上奋斗的故事
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/39894901" target="_blank">
+<font color="red">参与话题讨论，好礼等你拿
+</font></a>
+
+
+</div>                        </div>
+                        
+
+  
+<link href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/main(1).js"></script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/weihan1314/article/details/7997421">
+        Android4.0-Fragment框架实现方式剖析（一）
+        </a></span>
+    </h1>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="http://blog.csdn.net/weihan1314/article/category/1239982" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Android UI</a> 
+        </span>
+    <span class="link_postdate">2012-09-19 18:59</span>
+    <span class="link_view" title="阅读次数">9113人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET.html" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(7)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shoucang&#39;]);collectArticle(&#39;Android4.0-Fragment框架实现方式剖析（一）&#39;,&#39;7997421&#39;);return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_jubao&#39;]);report(7997421,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://www.csdn.net/tag/android" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">android</a></div>
+
+  
+    
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/weihan1314/article/details/7997421#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t0">什么是Fragment</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t1">为什么要使用Fragment</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t2">实现Fragment的时候为什么要有一个默认的构造函数</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t3">Fragment的生命周期是怎样与Activity的生命周期整合的</a></li><ol><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t4">onInflate回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t5">onAttach回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t6">onCreate回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t7">onCreateView回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t8">onActivityCreated回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t9">Fragment与Activity相同生命周期调用</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t10">onDestroyView回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t11">onDestroy回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t12">onDetach回调</a></li><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t13">巧妙使用setRetainInstance</a></li></ol><li><a href="http://blog.csdn.net/weihan1314/article/details/7997421#t14">怎样管理Fragment&nbsp;</a></li></ol></div><div style="clear:both"></div><div id="article_content" class="article_content">
+
+<p><strong><span style="color:#ff0000">经过反复的学习对比，个人觉得带着问题学习新知是最有效的学习方式，因此文本就以提问的方式来讲述Fragment框架实现方式。</span></strong></p>
+<h5><a name="t0"></a>1、什么是Fragment？</h5>
+<p>Fragment包含在Activity中，Fragment只能存在于Activity的上下文（context）内，没有Activity就无法使用Fragment，因此Fragment只能在Activity的上下文（context）创建。Fragment可以作为Activity的一部分，Fragment和Activity非常相似，Fragment拥有一个与她相关的视图层次结构，拥有一个与活动非常相似的生命周期。</p>
+<h5><a name="t1"></a>2、为什么要使用Fragment？</h5>
+<p>Activity的使用局限：不能将多个Activity活动界面放在屏幕上一并显示。因此创建了Fragment来弥补Activity的局限。Fragment可以像Activity一样响应Back键等类似Activity的功能。</p>
+<h5><a name="t2"></a>3、实现Fragment的时候，为什么要有一个默认的构造函数？</h5>
+<p>谈到这儿，就不得不说一下Fragment的结构。Fragment的结构包括：视图层次结构、初始化参数的包</p>
+<p>首先来看一下Fragment和Activity的继承关系，如图1-1,1-2所示：</p>
+<div></div>
+<div><img alt="" src="file:///C:/Users/Administrator/AppData/Roaming/Tencent/Users/762864006/QQ/WinTemp/RichOle/Z%60]]9KGG95VE%25%7B%60@G7ORYBU.jpg" width="418" height="190">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="file:///C:/Users/Administrator/AppData/Roaming/Tencent/Users/762864006/QQ/WinTemp/RichOle/%7B@(F0G~%7BKLM9DC%7D2H4E_7EH.jpg" width="414" height="186"></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<span style="font-size:10px"><strong>图1-1 Fragment类继承关系&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<span style="font-size:10px"><strong>图1-2 Activity类继承关系</strong></span></strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>从图中很容易看出Fragment是直接从Object继承的，而Activity是Context的子类。因此我们可以得出结论：<span style="color:#3333ff">Fragment不是Activity的扩展。但是与Activity一样，在我们使用Fragment的时候我们总会扩展Fragment（或者是她的子类），并可以通过子类更改她的行为。</span></p>
+<p>&nbsp;Fragment可以拥有一个与用户交互的视图层次结构，该视图层次结构和Activity的视图层次结构一样，也可以通过XML布局规范创建（扩充）或者代码创建。（备注：如果视图层次结构需要向用户显示，则必须将Fragment的视图层次结构附加到Activity的试图层次结构中）</p>
+<p>前面介绍了那么多，只是为了抛砖引玉，接下来进入正题，为什么Fragment必须包含一个默认的构造函数（在Java类中，如果没有构造函数，在编译的时候会自动创建一个不带参数的默认构造函数。因此如果Java类中没有其他的构造函数，可以将默认函数省略，编译器会自动创建；如果Java类中有其他构造函数时，在编译时系统不会创建默认的构造函数，因此在有非默认构造函数时，又需要在编译时出现默认构造函数，就必须在Java类中显示的写出默认构造函数）初始化参数的包——类似于活动，碎片可由系统自动保存并在以后还原。当系统还原Fragment时，她调用默认的构造函数，然后将参数包还原到新建的Fragment。该Fragment执行的后续回调能够访问这些参数，可以将碎片还原到上一个状态。因此在使用Fragment时，一定要确保以下两点：</p>
+<ol>
+<li>确保Fragment类存在默认的构造函数；</li><li>在Fragment创建后立即添加一个参数包（Bundle），使Fragment重建时可以正确设置Fragment，也使Android系统可以在必要时正确还原Fragment。</li></ol>
+<p>小结：Fragment的子类必须具有默认的构造函数和一个参数包，因为Fragment在重新创建的时候会调用默认的构造函数，而且会在重新创建时将状态保存到一个包（Bundle）对象（<strong><span style="color:#3333ff">备注：注意区分对象包和前面所说的参数包</span></strong>）中，这个包（Bundle）对象会被回送到该Fragment的onCreate()回调。这个保存的包（Bundle）也会传递到onInflate()\onCreateView()\onActivityCreated()。（备注：这不是作为初始化参数而附加的包。可能在这个包中存储Fragment的当前状态，而不是应该用于初始化她的值）</p>
+<h5><a name="t3"></a>4、Fragment的生命周期是怎样与Activity的生命周期整合的？</h5>
+<p>&nbsp;在使用Fragment之前，一定要了解Fragment的生命周期。Fragment的生命周期相比Activity的生命周期要更为复杂，理解何时处理Fragment至关重要。由于Fragment是依赖于Activity的，接下来看一下两者的生命周期有什么异同，Fragment与Activity生命周期如图1-3、1-4所示：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img alt="" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/1349577591_2744.png" width="316" height="489">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/1349577672_7163.png" width="328" height="489"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<strong><span style="font-size:10px">图1-3 Activity运行时Fragment生命周期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图1-4 Activity生命周期</span></strong></p>
+<p><span style="color:#ff0000">通过对Fragment和Activity对比，将会发现许多不同之处，主要原因是因为Activity和Fragment之间需要交互</span>。&nbsp;相信大家对Activity的生命周期已经非常熟悉，在此就不做过多介绍，直接切入正题介绍Fragment的生命周期。在Fragment开始阶段，Fragment会以对象的形式存在于内存中。创建Fragment实例有如下两种情况：</p>
+<ol>
+<li>创建Fragment实例；</li><li>系统从保存状态重新创建Fragment的情况下，将初始化参数添加到碎片对象中。当系统从保存的状态还原Fragment时，会调用默认的构造函数，然后附件初始化参数包；</li></ol>
+<p>使用代码创建Fragment的实例：</p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a><div style="position: absolute; left: 409px; top: 2430px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;MyFragment&nbsp;newInstance(</span><span class="keyword">int</span><span>&nbsp;index){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;MyFragment&nbsp;mf&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;MyFragment();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;Bundle&nbsp;args&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Bundle();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;args.putInt(<span class="string">"index"</span><span>,index);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;mf.setArguments(args);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;mf;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre class="java" name="code" style="display: none;">public static MyFragment newInstance(int index){
+    MyFragment mf = new MyFragment();
+    Bundle args = new Bundle();
+    args.putInt("index",index);
+    mf.setArguments(args);
+    return mf;
+}</pre>
+<h6><a name="t4"></a>1.onInflate()回调</h6>
+<p><span class="sympad">API文档：<a href="http://developer.android.com/reference/android/app/Fragment.html#onInflate(android.app.Activity, android.util.AttributeSet, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none">onInflate</a></span><span>(</span><a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a><span><span>&nbsp;</span>activity,<span>&nbsp;</span></span><a href="http://developer.android.com/reference/android/util/AttributeSet.html">AttributeSet</a><span><span>&nbsp;</span>attrs,<span>&nbsp;</span></span><a href="http://developer.android.com/reference/android/os/Bundle.html">Bundle</a><span><span>&nbsp;</span>savedInstanceState)--<span>Called
+ when a fragment is being created as part of a view layout inflation, typically from setting the content view of an activity.</span></span></p>
+<p><span>Called when a fragment is being created as part of a view layout inflation, typically from setting the content view of an activity. This may be called immediately after the fragment is created from a<span>&nbsp;</span></span>tag in a layout file. Note this
+ is<span>&nbsp;</span><em style="font-style:italic">before</em><span>&nbsp;</span>the fragment's<span>&nbsp;</span><code style="font:bold 14px/1.5 &#39;courier new&#39;,courier,monospace; color:rgb(0,102,0)"><a href="http://developer.android.com/reference/android/app/Fragment.html#onAttach(android.app.Activity)" style="color:rgb(37,138,175); text-decoration:none">onAttach(Activity)</a></code><span>&nbsp;</span>has
+ been called; all you should do here is parse the attributes and save them away.</p>
+<p>如果Fragment是由&lt;fragment&gt;标记定义的（通常是在活动调用setContentView()来设置自己的主要布局），Fragment将调用自己的onInflate()回调。这一过程中传入一个AttributeSet（包含来自&lt;fragment&gt;标记的特性）和一个保存的包。如果重新创建碎片，并且之前在onSaveInstanceState()中保存了某种状态，此包（Bundle）将包含保存的状态值。onInflate()预计开发人员会读取特性值并保存她们供以后使用。在Fragment的onInflate()这一生命阶段，对用户界面执行任何操作都尚早，因为Fragment甚至还没有与其Activity关联。</p>
+<p>（备注：onInflate()文档与实际使用不符，文档表明onInflate()始终在onAttach()之前调用。实际上，在Activity重新启动后，onInflate()可能在onCreateView()之后调用。这对于将值设置到包（Bundle）中并调用setArguments()而言太迟了，Android官方文档中Fragment生命周期的图示中也没有将onInflate()包含在生命周期，看来Android的大牛们也很难预测onInflate()会在何时回调）</p>
+<h6><a name="t5"></a>2.onAttach()回调</h6>
+<p>好了，讨论了那么纠结的问题，相比大家都被我绕晕了吧，但是追求技术的道路中是不能有半点怠慢的，透彻分析问题才是我们追求技术的使命。如果大家都头有点晕的话，建议大家先看部喜剧片吧，清醒一下头脑！如果还能坚持的，就跟随我的思路继续探寻。onAttach()回调，回头一看，MyGod，该方法终于出现在Fragment生命周期的图解中了，总算是引领大家步入正轨了。</p>
+<p class="jd-details-title"><span class="normal" style="font-weight:normal">API文档：public void<span>&nbsp;</span></span><span class="sympad" style="margin-right:2px">onAttach</span><span>&nbsp;</span><span class="normal" style="font-weight:normal">(<a href="http://developer.android.com/reference/android/app/Activity.html" style="color:rgb(37,138,175); text-decoration:none">Activity</a><span>&nbsp;</span>activity)
+ --Called when a fragment is first attached to its activity.<span> </span><code style="font:bold 14px/1.5 &#39;courier new&#39;,courier,monospace; color:rgb(0,102,0)"><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreate(android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none">onCreate(Bundle)</a></code><span></span>will
+ be called after this.</span></p>
+<p>onAttach()回调将在Fragment与其Activity关联之后调用。需要使用Activity的引用或者使用Activity作为其他操作的上下文，将在此回调方法中实现。</p>
+<p><span style="color:#ff0000">注意：Fragment类有一个getActivity()方法，返回与Fragment关联的Activity。在Fragment的整个生命周期中，初始化参数包（Bundle）可以从碎片的getArguments()方法获得。</span></p>
+<p><span style="color:#ff0000">切忌：将Fragment附加到Activity以</span><span style="color:#ff0000">后，就无法再次调用setArguments()——除了在最开始，无法向初始化参数添加内容。</span></p>
+<h6><a name="t6"></a>3.onCreate()回调</h6>
+<p>接下来回调的方法就是onCreate()，大家可以不要与Activity的onCreate()回调方法混淆了。此回调获取传入的参数包（备注：如果在创建时设置了参数包（Bundle）的话就可以获得），不应该将需要依赖于Activity视图层次结构的存在性的代码放在此回调方法中，尽管Fragment现在可能已经与其Activity关联，但是我们还没有获得Activity的onCreate()已完成的通知，所以不能将依赖于Activity视图层次结构存在性的代码放入此回调方法中。</p>
+<p>（备注：在onCreate()回调方法中，我们应该尽量避免耗时操作（避免阻塞UI线程），在实际项目中触发后台线程进行准备非常有用，阻塞调用应该位于后台线程中。）</p>
+<p>示例代码：</p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a><div style="position: absolute; left: 409px; top: 3529px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="comment">/**</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;During&nbsp;creation,&nbsp;if&nbsp;arguments&nbsp;have&nbsp;been&nbsp;supplied&nbsp;to&nbsp;the&nbsp;fragment</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;then&nbsp;parse&nbsp;those&nbsp;out.</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation">@Override</span><span>&nbsp;</span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">super</span><span>.onCreate(savedInstanceState);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bundle&nbsp;args&nbsp;=&nbsp;getArguments();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(args&nbsp;!=&nbsp;</span><span class="keyword">null</span><span>)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mLabel&nbsp;=&nbsp;args.getCharSequence(<span class="string">"label"</span><span>,&nbsp;mLabel);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li></ol></div><pre class="java" name="code" style="display: none;">/**
+     * During creation, if arguments have been supplied to the fragment
+     * then parse those out.
+     */
+    @Override public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            mLabel = args.getCharSequence("label", mLabel);
+        }
+    }</pre>
+<h6><a name="t7"></a>4.onCreateView()回调</h6>
+<p>接下来的回调方法是onCreateView()，在该回调方法中应该返回该Fragment的一个视图层次结构。</p>
+<a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"><strong><span style="font-size:14px; background-color:#f9f9f9"></span></strong></a>
+<p class="jd-details-title"><span class="normal" style="font-weight:normal">API文档：public<span>&nbsp;</span><a href="http://developer.android.com/reference/android/view/View.html" style="color:rgb(37,138,175); text-decoration:none">View</a><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"><span>&nbsp;</span></a></span><span class="sympad" style="margin-right:2px">onCreateView</span><span>&nbsp;</span><span class="normal" style="font-weight:normal">(<a href="http://developer.android.com/reference/android/view/LayoutInflater.html" style="color:rgb(37,138,175); text-decoration:none">LayoutInflater</a><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"><span>&nbsp;</span>inflater,<span>&nbsp;</span></a><a href="http://developer.android.com/reference/android/view/ViewGroup.html" style="color:rgb(37,138,175); text-decoration:none">ViewGroup</a><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"><span>&nbsp;</span>container,<span>&nbsp;</span></a><a href="http://developer.android.com/reference/android/os/Bundle.html" style="color:rgb(37,138,175); text-decoration:none">Bundle</a><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"><span>&nbsp;</span>savedInstanceState)</a>--Called
+ to have the fragment instantiate its user interface view. This is optional, and non-graphical fragments can return null (which is the default implementation). This will be called between<span></span><code style="font:bold 14px/1.5 &#39;courier new&#39;,courier,monospace; color:rgb(0,102,0)"><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreate(android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none">onCreate(Bundle)</a><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"></a></code><span></span>and<span></span><code style="font:bold 14px/1.5 &#39;courier new&#39;,courier,monospace; color:rgb(0,102,0)"><a href="http://developer.android.com/reference/android/app/Fragment.html#onActivityCreated(android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none">onActivityCreated(Bundle)</a><a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"></a></code>.</span></p>
+<p class="jd-details-title"><span class="normal" style="font-weight:normal"></span>&nbsp;其中的Bundle为状态包（备注：必须和前面所说的参数包（Bundle）区分开来）注意：不要将视图层次结构附加到传入的ViewGroup父元素中，该关联会自动完成。如果在此回调中将碎片的视图层次结构附加到父元素，很可能会出现异常。实例代码如下所示：</p>
+<p class="jd-details-title">&nbsp;</p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a><div style="position: absolute; left: 409px; top: 4060px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="comment">/**</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Create&nbsp;the&nbsp;view&nbsp;for&nbsp;this&nbsp;fragment,&nbsp;using&nbsp;the&nbsp;arguments&nbsp;given&nbsp;to&nbsp;it.</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="annotation">@Override</span><span>&nbsp;</span><span class="keyword">public</span><span>&nbsp;View&nbsp;onCreateView(LayoutInflater&nbsp;inflater,&nbsp;ViewGroup&nbsp;container,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bundle&nbsp;savedInstanceState)&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View&nbsp;v&nbsp;=&nbsp;inflater.inflate(R.layout.hello_world,&nbsp;container,&nbsp;<span class="keyword">false</span><span>);</span><span class="comment">//&nbsp;不能将Fragment的视图附加到此回调的容器元素，因此attachToRoot参数必须为false&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View&nbsp;tv&nbsp;=&nbsp;v.findViewById(R.id.text);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((TextView)tv).setText(mLabel&nbsp;!=&nbsp;<span class="keyword">null</span><span>&nbsp;?&nbsp;mLabel&nbsp;:&nbsp;</span><span class="string">"(no&nbsp;label)"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tv.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.gallery_thumb));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;v;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li></ol></div><pre class="java" name="code" style="display: none;"> /**
+     * Create the view for this fragment, using the arguments given to it.
+     */
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.hello_world, container, false);// 不能将Fragment的视图附加到此回调的容器元素，因此attachToRoot参数必须为false 
+        View tv = v.findViewById(R.id.text);
+        ((TextView)tv).setText(mLabel != null ? mLabel : "(no label)");
+        tv.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.gallery_thumb));
+        return v;
+    }</pre>
+<h6 class="jd-details-title"><a name="t8"></a>5.onActivityCreated()回调</h6>
+<p class="jd-details-title">终于到了与用户交互的时刻了，onActivityCreated()回调会在Activity完成其onCreate()回调之后调用。在调用onActivityCreated()之前，Activity的视图层次结构已经准备好了，这是在用户看到用户界面之前你可对用户界面执行的最后调整的地方。（备注：如果Activity和她的Fragment是从保存的状态重新创建的，此回调尤其重要，也可以在这里确保此Activity的其他所有Fragment已经附加到该活动中了）</p>
+<h6><a name="t9"></a>6.&nbsp;Fragment与Activity相同生命周期调用</h6>
+<p>接下来的onStart()\onResume()\onPause()\onStop()回调方法将和Activity的回调方法进行绑定，也就是说与Activity中对应的生命周期相同，因此不做过多介绍。</p>
+<h6><a name="t10"></a>7.onDestroyView()回调</h6>
+<p>该回调方法在视图层次结构与Fragment分离之后调用。</p>
+<a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none"></a>
+<h6 class="jd-tagdata jd-tagdescr" style="margin:0.25em 0px 0.75em"><a name="t11"></a>8.onDestroy()回调</h6>
+<div class="jd-tagdata jd-tagdescr" style="margin:0.25em 0px 0.75em">不再使用Fragment时调用。（备注：Fragment仍然附加到Activity并任然可以找到，但是不能执行其他操作）</div>
+<h6 class="jd-tagdata jd-tagdescr" style="margin:0.25em 0px 0.75em"><a name="t12"></a>9.onDetach()回调</h6>
+<div class="jd-tagdata jd-tagdescr" style="margin:0.25em 0px 0.75em">Fragme生命周期最后回调函数，调用后，Fragment不再与Activity绑定，释放资源<a href="http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)" style="color:rgb(37,138,175); text-decoration:none">&nbsp;</a>。</div>
+<div class="jd-tagdata jd-tagdescr" style="margin:0.25em 0px 0.75em">通过以上说明，纵观Fragment生命周期和Activity生命周期整合后如图1-5所示：</div>
+<div class="jd-tagdata jd-tagdescr" style="margin:0.25em 0px 0.75em"><img alt="" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/1349601916_7526.png" width="340" height="479">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/1349603906_9949.png" width="317" height="480"></div>
+<div class="jd-tagdata jd-tagdescr" style="margin:0.25em 0px 0.75em"><span style="font-size:10px"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 图1-5 Activity和Fragment生命周期整合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;图1-6 Fragment生命周期</strong></span></div>
+<h6><a name="t13"></a>10.巧妙使用setRetainInstance()</h6>
+<p>为什么会在这儿花一定的篇幅详细说明setRetainInstance()方法呢？因为此方法可以有效地提高系统的运行效率，对流畅性要求较高的应用可以适当采用此方法进行设置。</p>
+<p>&nbsp;Fragment有一个非常强大的功能——就是可以在Activity重新创建时可以不完全销毁Fragment，以便Fragment可以恢复。在onCreate()方法中调用setRetainInstance(true/false)方法是最佳位置。当Fragment恢复时的生命周期如图1-6所示，注意图中的红色箭头。当在onCreate()方法中调用了setRetainInstance(true)后，Fragment恢复时会跳过onCreate()和onDestroy()方法，因此不能在onCreate()中放置一些初始化逻辑，切忌！</p>
+<h4><a name="t14"></a>5、怎样管理Fragment？&nbsp;</h4>
+<p><span style="font-family:SimSun">既然Fragment必须存在Activity的上下文（context）内，那么怎样管理Fragment是我们接下来需要关心的话题。FragmentManager组件负责管理属于一个活动的碎片（包括后退栈上的碎片和空闲的碎片）。可以在Activity或附加的Fragment上使用<span style="color:#ff0000">getFragmentManager()</span>方法来获取碎片管理器。代码如下所示：</span></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a><div style="position: absolute; left: 409px; top: 5752px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_4" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=4&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>FragmentManager&nbsp;fragmentManager&nbsp;=&nbsp;getFragmentManager()&nbsp;&nbsp;</span></span></li><li class=""><span>FragmentTransaction&nbsp;fragmentTransaction&nbsp;=&nbsp;fragmentManager.beginTransaction();&nbsp;&nbsp;</span></li></ol></div><pre class="java" name="code" style="display: none;">FragmentManager fragmentManager = getFragmentManager()
+FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();</pre>
+<p>&nbsp;</p>
+
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+<div class="bdsharebuttonbox bdshare-button-style0-16" style="float: right;" data-bd-bind="1413968720684">
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important"></a>
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important"></a>
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important"></a>
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important"></a>
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+<!--192.168.100.33-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/weihan1314/article/details/7989339&#39;;">上一篇</span><a href="http://blog.csdn.net/weihan1314/article/details/7989339" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">Android4.0-新增操作栏实现汇总</a></li>
+            <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/weihan1314/article/details/7998076&#39;;">下一篇</span><a href="http://blog.csdn.net/weihan1314/article/details/7998076" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">Android 定位自己当前位置信息</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+        <div id="digg" articleid="7997421">
+            <dl id="btnDigg" class="digg digg_enable">
+                <dt onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_ding&#39;])">顶</dt>
+                <dd>14</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_enable">
+                <dt onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_cai&#39;])">踩</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+</div>
+      <dl class="blog-associat-tag">
+        <dt>主题推荐</dt>
+        <dd>
+                <a href="http://www.csdn.net/tag/android4.0" target="_blank" class="blog-tage-red">android4.0</a> 
+                <a href="http://www.csdn.net/tag/%E6%A1%86%E6%9E%B6" target="_blank" class="blog-tage-red">框架</a> 
+                <a href="http://www.csdn.net/tag/%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98" target="_blank" class="blog-tage-red">开发人员</a> 
+                <a href="http://www.csdn.net/tag/interface" target="_blank" class="blog-tage-red">interface</a> 
+                <a href="http://www.csdn.net/tag/%E7%BC%96%E8%AF%91%E5%99%A8" target="_blank" class="blog-tage-red">编译器</a> 
+        </dd>
+    </dl> 
+
+
+<dl class="blog-ass-articl tracking-ad" data-mod="popu_36" id="res-relatived"> 
+     <dt><span>猜你在找</span></dt>    
+<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/deng0zhaotai/article/details/12510935" title="Android常用控件之Fragment仿Android4.0设置界面（二）" strategy="SearchAlgorithm" target="_blank">Android常用控件之Fragment仿Android4.0设置界面（二）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/tanxjian/article/details/9148661" title="camera 框架接口函数调用流程，基于android4.0" strategy="SearchAlgorithm" target="_blank">camera 框架接口函数调用流程，基于android4.0</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u013034750/article/details/21179905" title="Android框架层漏洞-Fragment注入" strategy="SearchAlgorithm" target="_blank">Android框架层漏洞-Fragment注入</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/root45/article/details/10007267" title="基于android4.0 USB gadget框架分析" strategy="SearchAlgorithm" target="_blank">基于android4.0 USB gadget框架分析</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/L173864930/article/details/17279165" title="Android框架攻击之Fragment注入" strategy="SearchAlgorithm" target="_blank">Android框架攻击之Fragment注入</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/kakaBack/article/details/7747820" title="android4.0 输入法框架分析" strategy="SearchAlgorithm" target="_blank">android4.0 输入法框架分析</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/koko7958/article/details/8169109" title="基于Fragment的Android前台服务框架" strategy="SearchAlgorithm" target="_blank">基于Fragment的Android前台服务框架</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/mznewfacer/article/details/7886167" title="在Android4.0中Contacts拨号界面分页方式剖析" strategy="SearchAlgorithm" target="_blank">在Android4.0中Contacts拨号界面分页方式剖析</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/csuhanyong/article/details/38495165" title="android 创建桌面快捷方式，4.0系统可用" strategy="SearchAlgorithm" target="_blank">android 创建桌面快捷方式，4.0系统可用</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u013158614/article/details/18400057" title="Android 4.0与4.2 全屏实现方式并且在设置里可实时控制" strategy="SearchAlgorithm" target="_blank">Android 4.0与4.2 全屏实现方式并且在设置里可实时控制</a></dd></dl>
+
+<script type="text/javascript">
+    var searchtitletags = 'Android4.0-Fragment框架实现方式剖析（一）' + ',' + 'android4.0,框架,开发人员,interface,编译器';
+    searchService({
+        index: 'blog',
+        query: searchtitletags,
+        from: 10,
+        size: 10,
+        appendTo: '#res-relatived',
+        url: 'recommend',
+        his: 2,
+        client: "blog_cf_enhance",
+        tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+    });
+
+ </script>   
+
+
+    <div id="ad_cen">
+   
+          <script type="text/javascript">
+              new Ad(4, 'ad_cen');
+          </script>
+    <iframe id="ad_frm_0" frameborder="0" scrolling="no" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad(1).html" style="border-width: 0px; overflow: hidden; width: 984px; height: 90px;"></iframe></div>
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_4303369"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/liushaogeng" target="_blank">liushaogeng</a> <span class="ptime">2014-09-19 13:24发表</span>  <a href="http://blog.csdn.net/weihan1314/article/details/7997421#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display: none;" commentid="4303369" username="liushaogeng"> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/liushaogeng" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/3_liushaogeng.jpg" width="40" height="40"></a></dd><dd class="comment_body">写的不错，收藏了</dd><dl class="comment_item comment_reply" id="comment_item_4303899"><dt class="comment_head" floor="6">Re: <span class="user"><a class="username" href="http://blog.csdn.net/weihan1314" target="_blank">Jony-Li</a> <span class="ptime">2014-09-19 15:57发表</span>  <a href="http://blog.csdn.net/weihan1314/article/details/7997421#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display: none;" commentid="4303899" username="weihan1314"> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/weihan1314" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/3_weihan1314.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复liushaogeng：对大家有帮助就行</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_4160269"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/a3595669260" target="_blank">a3595669260</a> <span class="ptime">2014-08-11 10:25发表</span>  <a href="http://blog.csdn.net/weihan1314/article/details/7997421#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="4160269" username="a3595669260"> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/a3595669260" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/3_a3595669260.jpg" width="40" height="40"></a></dd><dd class="comment_body">最上面图片的链接是: <br>file:///C:/Users/Administrator/AppData/Roaming/Tencent/Users/762864006/QQ/WinTemp/RichOle/%7B@(F0G~%7BKLM9DC%7D2H4E_7EH.jpg<br>...</dd></dl><dl class="comment_item comment_topic" id="comment_item_3821715"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/sundxing" target="_blank">无明有心</a> <span class="ptime">2014-05-08 09:44发表</span>  <a href="http://blog.csdn.net/weihan1314/article/details/7997421#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3821715" username="sundxing"> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sundxing" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/3_sundxing.jpg" width="40" height="40"></a></dd><dd class="comment_body">setRetainInstance()却是需要留心的一颗糖</dd></dl><dl class="comment_item comment_topic" id="comment_item_3705877"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/u013525839" target="_blank">GugaTeng</a> <span class="ptime">2014-04-04 12:24发表</span>  <a href="http://blog.csdn.net/weihan1314/article/details/7997421#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3705877" username="u013525839"> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u013525839" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/3_u013525839.jpg" width="40" height="40"></a></dd><dd class="comment_body">非常棒！</dd></dl><dl class="comment_item comment_topic" id="comment_item_3523145"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/xiaoxia19920920" target="_blank">xiaoxia19920920</a> <span class="ptime">2014-02-27 14:43发表</span>  <a href="http://blog.csdn.net/weihan1314/article/details/7997421#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3523145" username="xiaoxia19920920"> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xiaoxia19920920" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/3_xiaoxia19920920.jpg" width="40" height="40"></a></dd><dd class="comment_body">mark，结合声明周期讲得很nice。</dd></dl><dl class="comment_item comment_topic" id="comment_item_3382661"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/cyyworld" target="_blank">cyyworld</a> <span class="ptime">2014-01-08 14:13发表</span>  <a href="http://blog.csdn.net/weihan1314/article/details/7997421#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3382661" username="cyyworld"> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/weihan1314/article/details/7997421#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/cyyworld" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/3_cyyworld.jpg" width="40" height="40"></a></dd><dd class="comment_body">图片挂了</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/weihan1314/comment/submit?id=7997421" method="post" onsubmit="return subform(this);"><div class="commentform"><div class="panel_head">发表评论</div><ul><li class="left">用 户 名：</li><li class="right">lt3432435811</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/weihan1314/article/details/7997421#insertcode" code="code"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#ruby">Ruby</a><a href="http://blog.csdn.net/weihan1314/article/details/7997421#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/weihan1314/article/details/7997421#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 200px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '7997421';
+    var commentscount = 7;
+    var islock = false
+</script>
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    <iframe id="ad_frm_1" frameborder="0" scrolling="no" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad(2).html" style="border-width: 0px; overflow: hidden; width: 984px; height: 0px;"></iframe></div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+      
+
+       <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="">
+            <img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop" style="display: block;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);
+        
+
+        if($("#comment_content").length>0)
+        {
+            $("#quick-reply").show();
+
+            $("#quick-reply").click(function(){
+                setEditorFocus();
+            });
+        }       
+     
+        var d_top = $('#d-top-a');
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+</div>
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/weihan1314" target="_blank">
+    <img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/1_weihan1314.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/weihan1314" class="user_name" target="_blank">Jony-Li</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_guanzhu&#39;])"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=weihan1314&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+<div id="bms_box"><a href="http://medal.blog.csdn.net/allmedal.aspx" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/holdon_s2.gif" onmouseover="m_over_m(this,0)" onmouseout="m_out_m()" alt=""></a></div></div>
+<ul id="blog_rank">
+    <li>访问：<span>82509次</span></li>
+    <li>积分：<span>1570分</span></li>
+    <li>排名：<span>第9922名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>51篇</span></li>
+    <li>转载：<span>17篇</span></li>
+    <li>译文：<span>2篇</span></li>
+    <li>评论：<span>68条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1237464" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android</a><span>(24)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1237465" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Ruby</a><span>(0)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1237466" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Archive</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1239982" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android UI</a><span>(8)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1240872" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android Location</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1243939" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Tools</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1246218" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Design Pattern</a><span>(0)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1248872" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Linux</a><span>(14)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1254499" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java</a><span>(11)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1337058" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">设计模式</a><span>(0)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1343001" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java_JNI</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1346107" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">GIT/SVN/VSS</a><span>(5)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1386126" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">J2EE</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1424162" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Script</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1455671" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">管理</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/1473285" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">协议</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/weihan1314/article/category/2352951" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android源码之Gallery专题研究</a><span>(2)</span>
+            </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/weihan1314/article/month/2014/08">2014年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2014/07">2014年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2014/06">2014年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2013/06">2013年06月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2013/05">2013年05月</a><span>(4)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/weihan1314/article/month/2013/04">2013年04月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2013/03">2013年03月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2013/02">2013年02月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2012/12">2012年12月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2012/11">2012年11月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2012/10">2012年10月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/weihan1314/article/month/2012/09">2012年09月</a><span>(18)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421" title="Android4.0-Fragment框架实现方式剖析（一）">Android4.0-Fragment框架实现方式剖析（一）</a><span>(9109)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8232060" title="Android 异常解决方法汇总">Android 异常解决方法汇总</a><span>(7422)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8026830" title="Android 4.0设置Dialog点击屏幕不消失">Android 4.0设置Dialog点击屏幕不消失</a><span>(5325)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/7973073" title="Android 在非UI线程直接更新UI信息">Android 在非UI线程直接更新UI信息</a><span>(3953)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8033052" title="Android  static静态成员变量的使用误区">Android  static静态成员变量的使用误区</a><span>(3334)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8734410" title="Win7安装Ubuntu虚拟机异常处理：FATAL: NO bootable medium found! System halted">Win7安装Ubuntu虚拟机异常处理：FATAL: NO bootable medium found! System halted</a><span>(2874)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8223836" title="Android自动化测试及性能优化">Android自动化测试及性能优化</a><span>(2810)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8944291" title="Ubuntu环境下OpenGrok的安装及使用">Ubuntu环境下OpenGrok的安装及使用</a><span>(2476)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/7983725" title="Android--线程池实现方式解析">Android--线程池实现方式解析</a><span>(2302)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8280299" title="Android--利用Java反射机制获取视频帧图像">Android--利用Java反射机制获取视频帧图像</a><span>(2183)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/33741667" title="Android源码之Gallery专题研究（1）">Android源码之Gallery专题研究（1）</a><span>(9)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8232060" title="Android 异常解决方法汇总">Android 异常解决方法汇总</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/7997421" title="Android4.0-Fragment框架实现方式剖析（一）">Android4.0-Fragment框架实现方式剖析（一）</a><span>(7)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/38588821" title="Android源码之Gallery专题研究（2）">Android源码之Gallery专题研究（2）</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/7973073" title="Android 在非UI线程直接更新UI信息">Android 在非UI线程直接更新UI信息</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8033052" title="Android  static静态成员变量的使用误区">Android  static静态成员变量的使用误区</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8572716" title="JNI--Hello World">JNI--Hello World</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8026830" title="Android 4.0设置Dialog点击屏幕不消失">Android 4.0设置Dialog点击屏幕不消失</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8280299" title="Android--利用Java反射机制获取视频帧图像">Android--利用Java反射机制获取视频帧图像</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/weihan1314/article/details/8946228" title="JavaScript性能优化总结">JavaScript性能优化总结</a><span>(2)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"><iframe id="ad_frm_2" frameborder="0" scrolling="no" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad.html" style="border-width: 0px; overflow: hidden; width: 194px; height: 200px;"></iframe></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/weihan1314/article/details/38588821#comments">Android源码之Gallery专题研究（2）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zdd2389" class="user_name">zdd2389</a>:
+你好，请问机子上的所有图片的小图的数据如何获取？？我按你的思路，从AlbumPage.java找到i...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/weihan1314/article/details/38588821#comments">Android源码之Gallery专题研究（2）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/weihan1314" class="user_name">Jony-Li</a>:
+@zhongyuanceshi:你看看能不能从AlbumSet点击事件入手
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/weihan1314/article/details/7973073#comments">Android 在非UI线程直接更新UI信息</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/geziyujixilhq" class="user_name">神流浪</a>:
+我记得以前学的时候是因为在非UI线程（没有looper）里不能更新UI，以前是崩溃的，今天给人展示了...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/weihan1314/article/details/32327587#comments">Android 语言国际化</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/goodtalent" class="user_name">goodtalent</a>:
+非常有帮组，谢谢！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/weihan1314/article/details/32327587#comments">Android源码之Gallery专题研究（2）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zhongyuanceshi" class="user_name">zhongyuanceshi</a>:
+没有，感觉改动会比较大，发时间比较长，就没实现。不知道博主有什么高见？
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/weihan1314/article/details/32327587#comments">Android源码之Gallery专题研究（2）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/weihan1314" class="user_name">Jony-Li</a>:
+@zhongyuanceshi:请问你现在该需求实现了吗？
+    </p>
+    </li>
+    <li>
+   
+         <a href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET.html">Android4.0-Fragment框架实现方式剖析（一）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/weihan1314" class="user_name">Jony-Li</a>:
+@liushaogeng:对大家有帮助就行
+    </p>
+    </li>
+    <li>
+   
+         <a href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET.html">Android4.0-Fragment框架实现方式剖析（一）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/liushaogeng" class="user_name">liushaogeng</a>:
+写的不错，收藏了
+    </p>
+    </li>
+    <li>
+   
+         <a href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET.html">Android源码之Gallery专题研究（2）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zhongyuanceshi" class="user_name">zhongyuanceshi</a>:
+从图1-1中看到的流程，这个流程是不是不能改变。现在需求：点击桌面的图库icon，直接进入相机的Al...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/weihan1314/article/details/33741667#comments">Android源码之Gallery专题研究（1）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zhongyuanceshi" class="user_name">zhongyuanceshi</a>:
+最近在修改需求:1、点击桌面图库，默认进入相机相册略缩图界面AlbumPage2、AlbumPage...
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/cnick.js"></script>
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date() / 120000).toString(36) + '="></' + 'script>');
+</script><script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/pub_footer_2012.css"><div id="pub_footerall" class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a>|<a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a>|<a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd><a href="http://wpa.qq.com/msgrd?v=3&uin=2355263776&site=qq&menu=yes" target="_blank" class="qq">网站客服</a> <a href="http://wpa.qq.com/msgrd?v=3&uin=2251809102&site=qq&menu=yes" target="_blank" class="qq">杂志客服</a> <a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a> <a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a> <span class="phone" title="服务热线">400-600-2320</span></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display: none; position: absolute; z-index: 9990; width: 170px; left: -72px; top: 4372px;">  <iframe src="about:blank" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/notify.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad-blog.js"></script><script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad-ms1033.js"></script>
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad-ms1036_2.js"></script>
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ad-ms1042_3.js"></script>
+
+<script type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/count.js"></script><iframe src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/logs.html" frameborder="0" width="0" height="0"></iframe>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/toolbar.js"></script>
+     <!--new top-->
+
+
+<div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><iframe src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ibm-softlayer-free-news-inner-page-plsf-banner-475-60-30k.html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe><iframe src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/ibm-softlayer-free-database-banner-960-90-30k.html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe><iframe src="./Android4.0-Fragment框架实现方式剖析（一） - Inspiration - 博客频道 - CSDN.NET_files/shuguang-oct-download-sousuojieguoye-banner-728-90-30k.html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></body></html>

@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://www.tuicool.com/articles/IreAVn -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="authenticity_token" name="csrf-param">
+<meta content="2Jxn/frE/0P4qtgTuWFV+qKwZtcsdfVMZEUrtTEeqKY=" name="csrf-token">
+    <title>
+            最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷
+   </title>
+    <meta name="description" content="最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言）">
+    <meta property="qc:admins" content="2040660764645137746375">
+  <link rel="shortcut icon" href="http://static0.tuicool.com/favicon.ico" type="image/x-icon">
+  <link href="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/application-489f1dee145504ac422ad8e638e4bce8.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <script async="" type="text/javascript" src="http://www.gstatic.com/pub-config/ca-pub-7054762349007490.js"></script><script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/application-647b6206ed7d53a9eba1826cffbfa9e7.js" type="text/javascript"></script>
+
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="/assets/font-awesome-ie7.min.css">
+  <![endif]--> 
+    <script type="text/javascript" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/tip.js"></script> 
+    <!-- <script src="http://www.tuicool.com/assets/tip-f4ec5857c9dd01477c5a6ab78e6538f2.js" type="text/javascript"></script> -->
+  
+  <script type="text/javascript" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/m.js"></script>
+<script type="text/javascript" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/spin.min.js"></script><style type="text/css"></style>
+<link rel="stylesheet" href="http://static0.tuicool.com/assets/github.css">
+
+<script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/share.js"></script><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_style1_24.css"><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_popup.css?v=041dd590.css"></head>
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/o(1).html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div>
+  
+  <div id="header" class="navbar-fixed-top">
+    <div class="container">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </a>
+          <a href="http://www.tuicool.com/" class="brand">推酷</a>        
+        <nav class="nav-collapse collapse">
+            <ul class="nav navbar primary-nav">                            
+              <li class="">
+                <a href="http://www.tuicool.com/ah">
+                  文章
+                </a>
+              </li>              
+              <li class="">
+                <a href="http://www.tuicool.com/topics">
+                  主题
+                </a>
+              </li>
+              <li class="">
+                <a href="http://www.tuicool.com/sites/hot">
+                  站点
+                </a>
+              </li>
+              <li class="">
+                <a href="http://huodong.tuicool.com/">
+                  活动
+                </a>
+              </li>
+              <li>
+                <a href="http://www.tuicool.com/mobile">
+                  <b class="core_color_night">客户端</b>
+                </a>
+              </li>
+
+              <li class="dropdown">
+                <a href="http://www.tuicool.com/articles/IreAVn#" class="dropdown-toggle" data-toggle="dropdown">周刊 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://www.tuicool.com/mags">编程狂人</a></li>
+                  <li><a href="http://www.tuicool.com/mags/design">设计匠艺</a></li>                  
+                </ul>
+              </li>
+              
+               <li class="dropdown">
+                <a href="http://www.tuicool.com/articles/IreAVn#" class="dropdown-toggle" data-toggle="dropdown">更多 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://www.tuicool.com/bbs">讨论区</a></li>  
+                  <li><a href="http://www.tuicool.com/about">关于我们</a></li>                 
+                </ul>
+              </li>
+              
+              </ul>
+            <form class="navbar-search pull-left" action="http://www.tuicool.com/topics/search">
+              <input type="text" class="search-query span2" name="kw" placeholder="搜索主题">
+            </form>
+            <ul class="nav pull-right">
+                <li><a href="http://www.tuicool.com/login">登录</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+  </div>   
+</div>
+  <div id="flash_container" class="noPrint">    
+    <!-- <a href='#'' class='close' data-dismiss='alert'>×</a> -->
+  </div>
+    
+<div class="container-fluid">  
+  <div class="row-fluid">
+    <!--show start-->
+    <div class="span8 contant">
+        <h1>最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言）</h1>
+        <div class="article_meta">
+            <span class="timestamp">时间&nbsp;2013-04-03 12:31:13
+            </span>
+            <span class="from">
+                <i class="icon-globe"></i>
+                    <a class="cut cut28 from" href="http://www.tuicool.com/sites/vQZRB3" target="_blank">CSDN博客
+                    </a>
+            </span>
+            <span id="dup-cnt"><a href="http://www.tuicool.com/articles/dup?id=IreAVn" target="_blank">相似文章</a> (<i id="dup">0</i>)</span>
+            <span class="source" style="display:block;"><i style="float:left;">原文</i>&nbsp; 
+                <a class="cut cut70" href="http://blog.csdn.net/fth826595345/article/details/8754862" style="display:inline-block;">http://blog.csdn.net/fth826595345/article/details/8754862</a>
+            </span>
+            <a href="http://www.tuicool.com/articles/IreAVn#add-article-to-kan" id="add-article-to-kan-btn" class="btn" data-toggle="modal" style="display:none;">添加到推刊</a>
+            <!-- add_article to kan -->
+<div id="add-article-to-kan" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <span class="add-title">收藏到推刊</span>
+    <a href="http://www.tuicool.com/articles/IreAVn#new-kan" class="btn pull-right" data-toggle="modal">创建推刊</a>
+    <i class="clearfix"></i>
+  </div>
+  <div class="modal-body">
+    <ul id="add-kan-list">
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <input type="hidden" value="IreAVn" class="article-id"> 
+    <button class="btn btn-primary pull-left add-to-btn">  收 藏  </button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+  </div>
+</div>
+<div class="add-article-to-kan-alert">
+  已收藏到推刊！
+</div>
+
+            <div id="new-kan" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--
+    <a href="new-kan" class="btn" data-toggle="modal">创建推刊</a>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+-->
+  <div class="modal-body">
+    <input type="text" name="name" id="new-kan-name" placeholder="推刊名(必填)" required="" data-validation-required-message="请填写推刊名">
+    <span class="new-ness-name">请填写推刊名</span>
+    <br>
+    <textarea name="desc" id="desc" rows="6" placeholder="推刊描述"></textarea>
+    <span class="new-ness-desc">描述不能大于100个字符!</span>
+    <br>
+    权限设置：<input type="radio" name="type" value="1" checked="checked"> 公开
+    <input type="radio" name="type" value="0"> 仅自己可见
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary pull-left create-kan-btn" disabled="">创建</button>
+    <button class="btn dismiss-new-kan" data-dismiss="modal" aria-hidden="true">取消</button>
+  </div>
+</div>
+
+
+        </div>
+        <div class="article_body" id="nei">
+            <div>
+  <p>
+    <span style="color:#660000;">
+      我们建好一个android 的项目后，默认的res下面 有drawable、layout、values等目录
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <h2>
+    <span style="color:#660000;">
+      1.drawable目录相关
+      <br>
+    </span>
+  </h2>
+  <p>
+    <span style="color:#660000;">启开一个新的Android专案后在res资料夹内会有</span>
+  </p>
+  <span style="color:#660000;">
+    drawable-hdpi
+    <br>
+    drawable-mdpi
+    <br>
+  </span>
+  <p>
+    <span style="color:#660000;">drawable-ldpi</span>
+  </p>
+  <p>
+    <span style="color:#660000;">drawable-xhdpi</span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      drawable-xxhdpi
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">三个目录，所定义的dpi皆不同</span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <span style="color:#660000;">
+    一般來說，ldpi是120，mdpi是160，hdpi是240，xhdpi的dip是320，xxhdpi的是480。
+    <br>
+    <br>
+    xhdpi是Android 2.2才开始增加的分类；xlarge是Android 2.3才开始增加的分类; tvdip 则是最近的事。
+    <br>
+    此外
+    <br>
+    drawable-hdpi 对应的解析度为 WVGA (480x800),FWVGA (480x854)，是放高解析度的图片
+    <br>
+    drawable-mdpi 对应的解析度为 HVGA (320x480)，是放中等解析度的图片
+    <br>
+    drawable-ldpi 对应的解析度为 QVGA (240x320)，是放低解析度的图片
+    <br>
+  </span>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <span style="color:#660000;">
+    <br>
+  </span>
+  <p>
+    <span style="color:#660000;">Android系统会根据机器的解析度来分辨鉴定对应到相关的资料夹找出对应的图片，什么分辨率就使用对应的drawable下的目录；</span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <h2>
+    <span style="color:#660000;">2.layout目录相关</span>
+  </h2>
+  <p>
+    <span style="color:#660000;">在android中要让手机自适应不同分辨率的手机，总的来说有三种方法：</span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      1.
+      <span size="-1">
+        一种是代码
+        <em>实现</em>
+        布局
+      </span>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <span size="-1">
+        2.一种是
+        <em>多个layout</em>
+        来
+        <em>实现</em>
+        。
+      </span>
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">3.最后是使用属性layout_weight来实现自适应多个分辨率，但是确定是如果布局较复杂，实现起来比较难控制，复杂。</span>
+  </p>
+  <span style="color:#660000;">
+    <br>
+  </span>
+  <h3>
+    <span style="color:#660000;">
+      ---------1.普通情况
+      <br>
+    </span>
+  </h3>
+  <p>
+    <span style="color:#660000;">这里是说res目录当然是说的使用多个layout来自适应分辨率：</span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      其实很简单，只需要在res目录下创建不同
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      layout文件夹，比如layout-640x360,layout-800x480,所有
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      layout文件在编译之后都会写入R.java里，而系统会根据屏幕
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      大小自己选择合适
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      layout进行使用。
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <h3>
+    <span style="color:#660000;">----------2.设计到横屏竖屏时</span>
+  </h3>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      屏幕方向：
+      <br>
+      横屏竖屏自动切换：
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp; 可以在res目录下建立layout-port-800x600和layout-land两
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      目录，里面分别放置竖屏和横屏两种布局文件，这样在手机屏幕方向变化
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      时候系统会自动调用相应
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      布局文件，避免一种布局文件无法满足两种屏幕显示
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      问题。
+      <br>
+      不同
+      <strong style="background-color:rgb(136,104,0)">分辨率</strong>
+      横屏竖屏自动切换：
+      <br>
+      以800x600为例
+      <br>
+      可以在res目录下建立layout-port-800x600和layout-land-800x600两
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      目录
+      <br>
+      不切换：
+      <br>
+      以下步骤是网上流传
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      ，不过我自己之前是通过图形化界面
+      <strong style="background-color:rgb(255,102,255)">实现</strong>
+      这
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      配置，算是殊途同归，有空我会把图片贴上来。
+      <br>
+      还要说明一点：每
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      activity都有这
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      属性screenOrientation，每
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      activity都需要设置，可以设置为竖屏（portrait），也可以设置为无重力感应（nosensor）。
+      <br>
+      要让程序界面保持一
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      方向，不随手机方向转动而变化
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      处理办法：
+      <br>
+      在AndroidManifest.xml里面配置一下就可以了。加入这一行
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :screenOrientation="landscape"。
+      <br>
+      例如（landscape是横向，portrait是纵向）：
+      <br>
+      Java代码:
+      <br>
+      &lt;?xml version="1.0" encoding="utf-8"?&gt;
+      <br>
+      &lt;manifest xmlns:
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      ="http://schemas.
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      .com/apk/res/
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      "
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; package="com.ray.linkit"
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :versionCode="1"
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :versionName="1.0"&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp; &lt;application
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :icon="@drawable/icon"
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :label="@string/app_name"&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;activity
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :name=".Main"
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :label="@string/app_name"
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :screenOrientation="portrait"&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;intent-filter&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;action
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :name="
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      .intent.action.MAIN" /&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;category
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :name="
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      .intent.category.LAUNCHER" /&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/intent-filter&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/activity&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;activity
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :name=".GamePlay"
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :screenOrientation="portrait"&gt;&lt;/activity&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;activity
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :name=".OptionView"
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :screenOrientation="portrait"&gt;&lt;/activity&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp; &lt;/application&gt;
+      <br>
+      &nbsp;&nbsp;&nbsp; &lt;uses-sdk
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :minSdkVersion="3" /&gt;
+      <br>
+      &lt;/manifest&gt;
+      <br>
+      另外，
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      中每次屏幕
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      切换动会重启Activity，所以应该在Activity销毁前保存当前活动
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      状态，在Activity再次Create
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      时候载入配置，那样，进行中
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      游戏就不会自动重启了！
+      <br>
+      有
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      程序适合从竖屏切换到横屏，或者反过来，这
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      时候怎么办呢？可以在配置Activity
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      地方进行如下
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      配置
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :screenOrientation="portrait"。这样就可以保证是竖屏总是竖屏了，或者landscape横向。
+      <br>
+      而有
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      程序是适合横竖屏切换
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      。如何处理呢？首先要在配置Activity
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      时候进行如下
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      配置：
+      <strong style="background-color:rgb(255,255,102)">android</strong>
+      :configChanges="keyboardHidden|orientation"，另外需要重写Activity
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      onConfigurationChanged方法。
+      <strong style="background-color:rgb(255,102,255)">实现</strong>
+      方式如下，不需要做太
+      <strong style="background-color:rgb(136,0,0)">多的</strong>
+      内容：
+      <br>
+      @Override
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onConfigurationChanged(Configuration newConfig) {
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super.onConfigurationChanged(newConfig);
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // land do nothing is ok
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // port do nothing is ok
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+      <br>
+      写一
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      支持
+      <strong style="background-color:rgb(136,0,0)">多</strong>
+      分辨
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      程序，基于1.6开发
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      ，建立了三
+      <strong style="background-color:rgb(0,170,0)">个</strong>
+      资源文件夹drawable-hdpi drawable-mdpi drawable-ldpi，里面分别存放72*72 48*48 36*36
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      icon图标文件。当我在G1（1.5
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      系统）上测试时，图标应该自适应为48*48才对啊，但实际显示
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      是36*36。怎么才能让其自适应 48*48
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      icon图标呢
+      <br>
+      解决办法 drawable-hdpi drawable-mdpi drawable-ldpi改成drawable-480X320 drawable-800X480
+      <strong style="background-color:rgb(160,255,255)">的多</strong>
+      分辨支持
+      <strong style="background-color:rgb(160,255,255)">的</strong>
+      文件夹
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <span style="color:#660000;">
+    <br>
+  </span>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <h2>
+    <span style="color:#660000;">3.values目录相关</span>
+  </h2>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <h3>
+    <span style="color:#660000;">----------1.多语言：</span>
+  </h3>
+  <p>
+    <span style="color:#660000;">values目录是程序默认的资源文件目录，如果要实现多语言版本的话，我们就要添加要实现语言的对应的资源文件。</span>
+  </p>
+  <p>
+    <span style="color:#660000;">首先我们点击添加Android Xml File按钮，会出现下面的界面：</span>
+  </p>
+  <p>
+    <a href="http://images.cnblogs.com/cnblogs_com/wuyunan/WindowsLiveWriter/Android_F13A/image_4.png">
+      <img title="image" alt="image" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/3UVJ7z.png" border="0" class="alignCenter">
+    </a>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      输入文件名：string.xml，选中Values单选框，并把下面左列表中的Region添加到左边的列表里面，并在Region输入框里输入
+      <strong>
+        <em>cn，如下图</em>
+      </strong>
+    </span>
+  </p>
+  <p>&nbsp;</p>
+  <p>
+    <a href="http://images.cnblogs.com/cnblogs_com/wuyunan/WindowsLiveWriter/Android_F13A/image_8.png">
+      <img title="image" alt="image" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/qymQR3.png" border="0" class="alignCenter">
+    </a>
+  </p>
+  <p>
+    这时，上面的消息提示：如果用Region的话，需要使用语言项，和Region一样，我们把Language也添加到右面的列表里面，填入
+    <strong>
+      <em>zh，如下图</em>
+    </strong>
+  </p>
+  <p>
+    <a href="http://images.cnblogs.com/cnblogs_com/wuyunan/WindowsLiveWriter/Android_F13A/image_10.png">
+      <img title="image" alt="image" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/JZBzuq.png" border="0" class="alignCenter">
+    </a>
+  </p>
+  <p>&nbsp;</p>
+  <p>
+    <span style="color:#660000;">
+      4.0的是选择Android xml values file，输入名字后，点击next 进行操作，和上面的操作差不多。
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">&nbsp;</span>
+  </p>
+  <p>
+    <span style="color:#660000;">&nbsp;</span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      点击Finish按钮，资源文件就会建好了，目录：res\values-zh-rCN（
+      <em>其实上面一大堆操作，就是为生成这个目录</em>
+      ）
+    </span>
+  </p>
+  <p>
+    <a href="http://images.cnblogs.com/cnblogs_com/wuyunan/WindowsLiveWriter/Android_F13A/image_12.png">
+      <img title="image" alt="image" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/b67f6v.png" border="0" height="243" width="175">
+    </a>
+  </p>
+  <p>
+    <span style="color:#660000;">默认生成的string.xml的代码：</span>
+  </p>
+  <pre class="prettyprint xml"><span class="kwrd"><span class="pi">&lt;?</span></span><span class="pi"><span class="html">xml</span> <span class="attr">version</span><span class="kwrd">="1.0"</span> <span class="attr">encoding</span><span class="kwrd">="utf-8"</span>?<span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;</span></span><span class="tag"><span class="html"><span class="title">resources</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;</span></span><span class="tag"><span class="html"><span class="title">string</span></span> <span class="attr"><span class="attribute">name</span></span><span class="kwrd">=<span class="value">"hello"</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>Hello World, Test!<span class="kwrd"><span class="tag">&lt;/</span></span><span class="tag"><span class="html"><span class="title">string</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;</span></span><span class="tag"><span class="html"><span class="title">string</span></span> <span class="attr"><span class="attribute">name</span></span><span class="kwrd">=<span class="value">"app_name"</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>Test-Multilingual<span class="kwrd"><span class="tag">&lt;/</span></span><span class="tag"><span class="html"><span class="title">string</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;/</span></span><span class="tag"><span class="html"><span class="title">resources</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span></pre>
+  <p>
+    <span style="color:#660000;">修改刚刚生成的res\values-zh-rCN目录下的string.xml：</span>
+  </p>
+  <pre class="prettyprint xml"><span class="kwrd"><span class="pi">&lt;?</span></span><span class="pi"><span class="html">xml</span> <span class="attr">version</span><span class="kwrd">="1.0"</span> <span class="attr">encoding</span><span class="kwrd">="utf-8"</span>?<span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;</span></span><span class="tag"><span class="html"><span class="title">resources</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;</span></span><span class="tag"><span class="html"><span class="title">string</span></span> <span class="attr"><span class="attribute">name</span></span><span class="kwrd">=<span class="value">"app_name"</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>测试多语言<span class="kwrd"><span class="tag">&lt;/</span></span><span class="tag"><span class="html"><span class="title">string</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;</span></span><span class="tag"><span class="html"><span class="title">string</span></span> <span class="attr"><span class="attribute">name</span></span><span class="kwrd">=<span class="value">"hello"</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>你好 多语言测试<span class="kwrd"><span class="tag">&lt;/</span></span><span class="tag"><span class="html"><span class="title">string</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span>
+<span class="kwrd"><span class="tag">&lt;/</span></span><span class="tag"><span class="html"><span class="title">resources</span></span><span class="kwrd">&gt;</span></span><span class="kwrd"></span></pre>
+  <p>
+    <br>
+  </p>
+  <p>
+    <br>
+  </p>
+  <h4>
+    <span style="color:#660000;">多国语言：在res目录下建立不同名称的values文件来调用不同的语言包</span>
+  </h4>
+  <p>
+    <span style="color:#660000;">
+      <br>
+      <br>
+      Values文件汇总如下：
+      <br>
+      <br>
+      中文（中国）：values-zh-rCN
+      <br>
+      中文（台湾）：values-zh-rTW
+      <br>
+      中文（香港）：values-zh-rHK
+      <br>
+      英语（美国）：values-en-rUS
+      <br>
+      英语（英国）：values-en-rGB
+      <br>
+      英文（澳大利亚）：values-en-rAU
+      <br>
+      英文（加拿大）：values-en-rCA
+      <br>
+      英文（爱尔兰）：values-en-rIE
+      <br>
+      英文（印度）：values-en-rIN
+      <br>
+      英文（新西兰）：values-en-rNZ
+      <br>
+      英文（新加坡）：values-en-rSG
+      <br>
+      英文（南非）：values-en-rZA
+      <br>
+      阿拉伯文（埃及）：values-ar-rEG
+      <br>
+      阿拉伯文（以色列）：values-ar-rIL
+      <br>
+      保加利亚文:&nbsp; values-bg-rBG
+      <br>
+      加泰罗尼亚文：values-ca-rES
+      <br>
+      捷克文：values-cs-rCZ
+      <br>
+      丹麦文：values-da-rDK
+      <br>
+      德文（奥地利）：values-de-rAT
+      <br>
+      德文（瑞士）：values-de-rCH
+      <br>
+      德文（德国）：values-de-rDE
+      <br>
+      德文（列支敦士登）：values-de-rLI
+      <br>
+      希腊文：values-el-rGR
+      <br>
+      西班牙文（西班牙）：values-es-rES
+      <br>
+      西班牙文（美国）：values-es-rUS
+      <br>
+      芬兰文（芬兰）：values-fi-rFI
+      <br>
+      法文（比利时）：values-fr-rBE
+      <br>
+      法文（加拿大）：values-fr-rCA
+      <br>
+      法文（瑞士）：values-fr-rCH
+      <br>
+      法文（法国）：values-fr-rFR
+      <br>
+      希伯来文：values-iw-rIL
+      <br>
+      印地文：values-hi-rIN
+      <br>
+      克罗里亚文：values-hr-rHR
+      <br>
+      匈牙利文：values-hu-rHU
+      <br>
+      印度尼西亚文：values-in-rID
+      <br>
+      意大利文（瑞士）：values-it-rCH
+      <br>
+      意大利文（意大利）：values-it-rIT
+      <br>
+      日文：values-ja-rJP
+      <br>
+      韩文：values-ko-rKR
+      <br>
+      立陶宛文：valueslt-rLT
+      <br>
+      拉脱维亚文：values-lv-rLV
+      <br>
+      挪威博克马尔文：values-nb-rNO
+      <br>
+      荷兰文(比利时)：values-nl-BE
+      <br>
+      荷兰文（荷兰）：values-nl-rNL
+      <br>
+      波兰文：values-pl-rPL
+      <br>
+      葡萄牙文（巴西）：values-pt-rBR
+      <br>
+      葡萄牙文（葡萄牙）：values-pt-rPT
+      <br>
+      罗马尼亚文：values-ro-rRO
+      <br>
+      俄文：values-ru-rRU
+      <br>
+      斯洛伐克文：values-sk-rSK
+      <br>
+      斯洛文尼亚文：values-sl-rSI
+      <br>
+      塞尔维亚文：values-sr-rRS
+      <br>
+      瑞典文：values-sv-rSE
+      <br>
+      泰文：values-th-rTH
+      <br>
+      塔加洛语：values-tl-rPH
+      <br>
+      土耳其文：values--r-rTR
+      <br>
+      乌克兰文：values-uk-rUA
+      <br>
+      越南文：values-vi-rVN
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+  <h3>
+    <span style="color:#660000;">----------2.多分辨率：</span>
+  </h3>
+  <span style="color:#660000;">在不同的分辨率下，Android字体大小怎么自适应分辨率的变化？</span>
+  <p>
+    <span style="color:#660000;">假设需要适应320x240，480x320分辨率。在res目录下新建文件夹values-320x240,&nbsp;values-480x320。然后在文件夹&nbsp;values ，values-320x240 和 &nbsp;values-480x320 下新建xml文件dimens.xml，该xml文件内容如下：</span>
+  </p>
+  <br>
+  <p>
+    <br>
+  </p>
+  <p></p>
+  <pre class="prettyprint xml"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">resources</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">dimen</span> <span class="attribute">name</span>=<span class="value">"btnTextSize"</span>&gt;</span>14dip<span class="tag">&lt;/<span class="title">dimen</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">resources</span>&gt;</span></pre>
+  <br>
+  <p></p>
+  <p>
+    <span style="color:#660000;">
+      针对不同的分辨率
+      <span style="font-family:monospace">
+        <span style="white-space:pre">，btnTextSize的值不同。在布局文件中，用下面的方式引用该值：</span>
+      </span>
+    </span>
+    <br>
+  </p>
+  <p>
+    <br>
+  </p>
+  <p></p>
+  <pre class="prettyprint xml"><span class="tag">&lt;<span class="title">TextView</span> <span class="attribute">android:layout_width</span>=<span class="value">"fill_parent"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span> <span class="attribute">android:gravity</span>=<span class="value">"center"</span>
+    <span class="attribute">android:id</span>=<span class="value">"@+id/lblSet"</span> <span class="attribute">style</span>=<span class="value">"@style/btntext"</span> <span class="attribute">android:textSize</span>=<span class="value">"@dimen/btnTextSize"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">TextView</span>&gt;</span></pre>
+  <br>
+  <br>
+  <p></p>
+  <p>
+    <span style="color:#660000;">通过这种方法，可以方便设置在不同分辨率下，字体的大小了。当然，不仅仅字体大小，宽和高等其他的一些属性，也可以通过类似的方式来设置</span>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      &nbsp;
+      <br>
+    </span>
+  </p>
+  <div>
+    <p>
+      <span style="color:#660000;">layout中设置图片自适应大小，并且设置最大宽高，当图片的宽高大于设置的最大值时，宽高值为设置的最大值。</span>
+    </p>
+    <p>
+      <br>
+    </p>
+    <p>
+      <br>
+    </p>
+  </div>
+  <pre class="prettyprint xml"><span class="tag">&lt;<span class="title">ImageView</span> <span class="attribute">android:id</span>=<span class="value">"@+id/image_view"</span>    
+          <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>  
+          <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>  
+          <span class="attribute">android:adjustViewBounds</span>=<span class="value">"true"</span>  
+          <span class="attribute">android:maxWidth</span>=<span class="value">"42dp"</span>  
+          <span class="attribute">android:maxHeight</span>=<span class="value">"42dp"</span>  
+          <span class="attribute">android:scaleType</span>=<span class="value">"fitCenter"</span>  
+          <span class="attribute">android:layout_marginLeft</span>=<span class="value">"3dp"</span>  
+          <span class="attribute">android:src</span>=<span class="value">"@drawable/icon"</span>  
+          /&gt;</span></pre>
+  <br>
+  <p>
+    <br>
+  </p>
+  <p>
+    <span style="color:#660000;">关键代码：</span>
+  </p>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:layout_width="wrap_content"
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:layout_height="wrap_content"
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:adjustViewBounds="true"
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:maxWidth="42dp"
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:maxHeight="42dp"
+  </p>
+  <p>
+    <br>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      以上资源都来自于互联网
+      <span style="">
+        <span style="">（</span>
+        本文是
+        <span style="">我综合网上的资料合成的，所以比较全面）。</span>
+      </span>
+      <br>
+    </span>
+  </p>
+  <p>
+    <span style="color:#660000;">另外请参照我的另一篇文章综合学习：</span>
+    <a href="http://blog.csdn.net/fth826595345/article/details/8754805">http://blog.csdn.net/fth826595345/article/details/8754805</a>
+    <br>
+  </p>
+  <p>
+    <br>
+  </p>
+  <p>
+    <br>
+  </p>
+  <p>
+    <br>
+  </p>
+  <p>
+    <br>
+  </p>
+  <p>
+    <span style="color:#660000;">
+      <br>
+    </span>
+  </p>
+</div>
+
+        </div>
+        <div class="bottom_ad">
+                <script type="text/javascript">
+      var cpro_id = "u1665123";
+    </script>
+    <script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/c.js" type="text/javascript"></script><div id="BAIDU_DUP_wrapper_u1665123_0"><iframe id="cproIframe_u1665123" width="580" height="90" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/acom.html" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div><script charset="utf-8" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/acom"></script>
+
+        </div>
+        <div class="article_social">
+        <div class="article_like">
+                <button class="btn btn-large liked" id="my_like2" data_id="IreAVn">
+                    <i class="icon-heart-empty"></i>
+                    赞一个
+                </button>
+                <button class="btn btn-large liked" id="my_like" data_id="IreAVn">
+                    <i class="icon-star-empty"></i>
+                    收 藏
+                </button>
+        </div>
+        </div>
+           <div id="site_articles">
+              <div class="article-part-title">
+                <span>推荐文章</span>
+              </div>
+          <ul class="side_article_list">
+                <li class="side_article_list_item">
+                    1.<a href="http://www.tuicool.com/articles/367Bbe" target="_blank" title="Android：谈一谈安卓应用中的Toast情节（基础）">
+                    Android：谈一谈安卓应用中的Toast情节（基础）
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    2.<a href="http://www.tuicool.com/articles/AfUb6jR" target="_blank" title="4.1、Libgdx的生命周期">
+                    4.1、Libgdx的生命周期
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    3.<a href="http://www.tuicool.com/articles/zeMFFvB" target="_blank" title="Android中IntentService详解">
+                    Android中IntentService详解
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    4.<a href="http://www.tuicool.com/articles/n2IRVzj" target="_blank" title="Unity干中学——如何实现类似Windows Store 应用程序和Android Toast的通知？">
+                    Unity干中学——如何实现类似Windows Store 应用程序和Android Toast的通知？
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    5.<a href="http://www.tuicool.com/articles/7JvANj" target="_blank" title="Android开发周报 Issue#3">
+                    Android开发周报 Issue#3
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    6.<a href="http://www.tuicool.com/articles/36f2myU" target="_blank" title="Creating Apps With Material Design —— Using the Material Theme">
+                    Creating Apps With Material Design —— Using the Material Theme
+                </a>
+                </li>
+         </ul>
+        </div>
+
+        <div id="kan_articles"></div>
+        <div id="article_weibo" style="display:none;"></div>
+        <div class="comments">
+    <div class="comments-area">
+    <div class="comments-header">
+        <h5>我来评几句</h5>
+        <div class="alert comment-alert alert-error" style="display:none;">
+            错误
+        </div>
+            <textarea cols="60" rows="5" id="comment-body" placeholder="请输入评论内容..."></textarea>
+            <span class="btn btn-medium btn-submit" id="comment-submit">登录后评论</span>
+        <p style="margin-top: 5px;margin-left:10px;">
+            已发表评论数(<span class="comment_cnt">0</span>)
+        </p>
+    </div>
+    <div class="comments-list">
+        <div class="empty-cmts alert alert-success" style="display:none;">
+            没有更多评论了^^
+        </div>
+    </div>
+    <div class="more-comments" style="display:none;">
+        <a href="">更多评论</a>
+    </div>
+    <div class="load-fail" style="display: none;">
+        评论加载失败，<a href="javascript:reload_comments('IreAVn',1,0,-1);">重新加载</a>
+    </div>
+    </div>
+</div>
+
+    </div>
+         <div class="span4 article_right_side">
+            <div class="right_top">
+    <div class="article_related_site">
+    <h4 class="article-part-title">相关站点</h4>
+    <div class="article_related_site_body">
+        <div class="logo">
+            <img src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/vQZRB3.png">
+        </div>
+        <div class="name">
+            <div>
+                <a href="http://www.tuicool.com/sites/vQZRB3" target="_blank"> CSDN博客</a>
+            </div>
+            <div id="social-info">
+                <a href="http://weibo.com/u/1798777247" target="_blank"><img src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/weibo.png"></a>
+            </div>
+            <div>
+                    <input type="button" class="btn btn-success right_site_follow" value="+ 订阅" id="my_follow" data_id="vQZRB3">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="related_topics" class="related_topics2">
+    <h4 class="article-part-title">相关主题</h4>
+    <ul>
+        <li>
+            <a href="http://www.tuicool.com/topics/11080010" target="_blank" class="kan-item-head">
+              <small>安卓开发</small>
+              <img class="kan-cover" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/11080010.png" alt="安卓开发">
+            </a>
+          </li>
+    </ul>
+</div>
+
+
+
+       <script type="text/javascript">
+        var cpro_id = "u1735906";
+      </script>
+      <script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/c.js" type="text/javascript"></script><div id="BAIDU_DUP_wrapper_u1735906_0"><iframe id="cproIframe_u1735906" width="300" height="250" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/acom(4).html" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div><script charset="utf-8" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/acom(1)"></script>
+
+       <script type="text/javascript">
+        var cpro_id = "u1758461";
+      </script>
+      <script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/c.js" type="text/javascript"></script><div id="BAIDU_DUP_wrapper_u1758461_0"><iframe id="cproIframe_u1758461" width="300" height="250" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/acom(3).html" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div><script charset="utf-8" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/acom(2)"></script>
+
+<div id="right_site_articles">
+    <div class="article-part-title">
+        <span>热门文章</span>
+    </div>
+    <ul class="side_article_list">
+        <li class="side_article_list_item">
+            1.<a href="http://www.tuicool.com/articles/367Bbe" target="_blank" title="Android：谈一谈安卓应用中的Toast情节（基础）"> Android：谈一谈安卓应用中的Toast情节（基础） </a>
+        </li>
+        <li class="side_article_list_item">
+            2.<a href="http://www.tuicool.com/articles/AfUb6jR" target="_blank" title="4.1、Libgdx的生命周期"> 4.1、Libgdx的生命周期 </a>
+        </li>
+        <li class="side_article_list_item">
+            3.<a href="http://www.tuicool.com/articles/ZZJvma" target="_blank" title="构建一个不完善的移动应用（附录：安装 ADT）"> 构建一个不完善的移动应用（附录：安装 ADT） </a>
+        </li>
+        <li class="side_article_list_item">
+            4.<a href="http://www.tuicool.com/articles/n2IRVzj" target="_blank" title="Unity干中学——如何实现类似Windows Store 应用程序和Android Toast的通知？"> Unity干中学——如何实现类似Windows Store 应用程序和Android Toast的通知？ </a>
+        </li>
+        <li class="side_article_list_item">
+            5.<a href="http://www.tuicool.com/articles/zeMFFvB" target="_blank" title="Android中IntentService详解"> Android中IntentService详解 </a>
+        </li>
+        <li class="side_article_list_item">
+            6.<a href="http://www.tuicool.com/articles/ZzaeQz" target="_blank" title="创建Material Design风格的Android应用--创建列表和卡片"> 创建Material Design风格的Android应用--创建列表和卡片 </a>
+        </li>
+    </ul>
+</div>
+
+</div>
+
+<div class="operate_zone" style="position: fixed; top: 50px;">
+    <h4 class="side_article_list_title">分享该文章</h4>
+    <div class="share_zone">
+    <div class="bdsharebuttonbox bdshare-button-style1-24" data-bd-bind="1413945556917"> 
+         <a href="http://www.tuicool.com/articles/IreAVn#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="http://www.tuicool.com/articles/IreAVn#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+        <a href="http://www.tuicool.com/articles/IreAVn#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+        <a href="http://www.tuicool.com/articles/IreAVn#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+        <a href="http://www.tuicool.com/articles/IreAVn#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="http://www.tuicool.com/articles/IreAVn#" class="bds_more" data-cmd="more"></a>
+     </div>
+    <script>
+        window._bd_share_config = {
+            "common" : {
+                "bdSnsKey" : {
+                    "tsina" : "3113829255",
+                    "tqq" : "801536792"
+                },
+                "bdText" : "最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） (分享自 @推酷网)",
+                "bdMini" : "2",
+                "bdMiniList" : false,
+                "bdPic" : "http://aimg0.tuicool.com/aiyqae.png",
+                "bdStyle" : "1",
+                "bdSize" : "24"
+            },
+            "share" : {}
+        };
+        with (document)
+        0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+    </script>
+</div>
+          <script type="text/javascript"><!--
+google_ad_client = "ca-pub-7054762349007490";
+google_ad_host = "ca-host-pub-7209811712445461";
+google_ad_slot = "5705695566";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/show_ads.js">
+</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+
+</div>
+         </div>
+</div>
+
+<div id="myLoginModal" class="modal hide fade">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>用户登陆</h3>
+    </div>
+    <div class="modal-body">
+        <form method="post" action="http://www.tuicool.com/login" class="form-horizontal" id="login-form">
+            <div class="control-group">
+                <input id="xlEmail" name="email" type="text" placeholder="邮箱">
+            </div>
+            <div class="control-group">
+                <input id="xlPassword" name="password" type="password" placeholder="密码">
+            </div>
+            <div class="control-group">
+                <button type="submit" class="btn btn-primary">
+                    &nbsp;&nbsp;登&nbsp;&nbsp;&nbsp;陆&nbsp;&nbsp;
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="read-later-alert">
+</div>
+<style type="text/css">
+    #dup-cnt {
+        display: none;
+    }
+    .btn-large {
+        padding: 0;
+    }
+    .load-fail {
+        display: none;
+    }
+
+</style>
+<script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/highlight.pack.js"></script>
+<script type="text/javascript">
+      $(document).ready( function() {
+         // async_get_latest_articles('vQZRB3','IreAVn');
+         get_weibo_async("IreAVn");
+         related_kan("IreAVn");
+        window.page = 0;
+        window.last = 0;    
+        window.first = true;    
+        resize_article_image('#nei', 550);
+                load_comments("IreAVn",1,0,-1);
+                window.uid = -1;                
+        open_add_article_to_kan("false");
+        async_do_like2_article(); 
+        $('pre').each(function(i, e) {
+            hljs.highlightBlock(e, "<span class='indent'>  </span>", false)
+        });
+       });
+          
+       handle_follow_site("#my_follow","已订阅","+ 订阅");
+</script>
+
+
+</div>
+
+<div class="footer">
+    <div class="footer-inner">
+    <dl class="about-link site-link">
+        <dt>
+            网站相关
+        </dt>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/about">关于我们</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/mobile">移动应用</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://huodong.tuicool.com/">推酷活动</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/bbs/go/issues">建议反馈</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/changelog">更新日志</a>
+        </dd>
+    </dl>
+    <dl class="site-link follow-link">
+        <dt>
+            关注我们
+        </dt>
+        <dd>
+            <a target="_blank" href="http://e.weibo.com/tuicool2012"><img src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/weibo-32.png">推酷网</a>
+        </dd>
+        <dd><img src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/weixin-32.png">tuicool2012
+        </dd>
+        <dd><img src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/qun-54.png">QQ群:164644910
+        </dd>
+    </dl>
+    <dl class="site-link links">
+        <dt>
+            友情链接
+        </dt>
+        <dd>
+                <a href="http://www.woshipm.com/" title="人人都是产品经理" target="_blank">人人都是产品经理</a>&nbsp;&nbsp;
+                <a href="http://www.tmtforum.com/" title="TMTForum" target="_blank">TMTForum</a>&nbsp;&nbsp;
+                <a href="http://www.moobuu.com/" title="魔部网" target="_blank">魔部网</a>&nbsp;&nbsp;
+                <a href="http://www.pm265.com/" title="PM256" target="_blank">PM256</a>&nbsp;&nbsp;
+                <a href="http://www.pintu360.com/" title="品途网" target="_blank">品途网</a>&nbsp;&nbsp;
+                <a href="http://www.yidonghua.com/" title="移动信息化" target="_blank">移动信息化</a>&nbsp;&nbsp;
+                <a href="http://www.snsiu.com/" title="行晓网" target="_blank">行晓网</a>&nbsp;&nbsp;
+                <a href="http://code4app.com/" title="Code4App" target="_blank">Code4App</a>&nbsp;&nbsp;
+                <a href="http://www.taskcity.com/" title="智城外包网" target="_blank">智城外包网</a>&nbsp;&nbsp;
+                <a href="http://gkkgo.com/" title="KK学习助手" target="_blank">KK学习助手</a>&nbsp;&nbsp;
+                <a href="http://blog.lamper.cn/" title="LAMP人" target="_blank">LAMP人</a>&nbsp;&nbsp;
+                <a href="http://www.eoe.cn/" title="移动开发者社区" target="_blank">移动开发者社区</a>&nbsp;&nbsp;
+                <a href="http://www.apkway.com/forum.php" title="安卓航班网" target="_blank">安卓航班网</a>&nbsp;&nbsp;
+                <a href="http://www.huxiu.com/" title="虎嗅" target="_blank">虎嗅</a>&nbsp;&nbsp;
+                <a href="http://www.ycpai.com/" title="缘创派" target="_blank">缘创派</a>&nbsp;&nbsp;
+                <a href="http://www.iterduo.com/" title="IT耳朵" target="_blank">IT耳朵</a>&nbsp;&nbsp;
+                <a href="http://www.iresearch.cn/" title="艾瑞网" target="_blank">艾瑞网</a>&nbsp;&nbsp;
+                <a href="http://mediaworks.caixin.com/" title="创媒工场" target="_blank">创媒工场</a>&nbsp;&nbsp;
+                <a href="http://www.guigu.org/" title="硅谷网" target="_blank">硅谷网</a>&nbsp;&nbsp;
+                <a href="https://mos.meituan.com/" title="美团云" target="_blank">美团云</a>&nbsp;&nbsp;
+                <a href="http://www.managershare.com/" title="经理人分享" target="_blank">经理人分享</a>&nbsp;&nbsp;
+                <a href="http://www.shichangbu.com/" title="市场部网" target="_blank">市场部网</a>&nbsp;&nbsp;
+                <a href="http://www.ikanchai.com/" title="砍柴网" target="_blank">砍柴网</a>&nbsp;&nbsp;
+                <a href="http://www.cocoachina.com/" title="CocoaChina" target="_blank">CocoaChina</a>&nbsp;&nbsp;
+                <a href="http://www.ibeifeng.com/" title="北风网" target="_blank">北风网</a>&nbsp;&nbsp;
+                <a href="http://cn.cocos2d-x.org/" title="Cocos引擎中文官网" target="_blank">Cocos引擎中文官网</a>&nbsp;&nbsp;
+                <a href="http://www.wyzc.com/" title="我赢职场" target="_blank">我赢职场</a>&nbsp;&nbsp;
+                <a href="http://www.thebigdata.cn/" title="大数据时代" target="_blank">大数据时代</a>&nbsp;&nbsp;
+                <a href="http://www.qidic.com/" title="奇笛网" target="_blank">奇笛网</a>&nbsp;&nbsp;
+                <a href="http://www.cngulu.com/" title="咕噜网" target="_blank">咕噜网</a>&nbsp;&nbsp;
+                <a href="http://www.linuxdiyf.com/" title="红联linux" target="_blank">红联linux</a>&nbsp;&nbsp;
+                <a href="http://win10.ithome.com/" title="Win10之家" target="_blank">Win10之家</a>&nbsp;&nbsp;
+        </dd>
+    </dl>
+    <div class="clear"></div>
+    </div>
+</div>
+
+<div style="display:none;">
+      <script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/stat.php" language="JavaScript"></script><script src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=5541078" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./最新res目录讲解（drawable、layout、values等目录的分辨率和layout的横竖屏，以及values的多语言） - 推酷_files/pic.gif"></a>
+
+</div>
+
+
+
+
+<div class="return" title="返回顶部" style="display: block;"></div><iframe frameborder="0" id="bdSharePopup_1413945775632bg" class="bdshare_popup_bg" style="height: 326px; width: 228px; top: 1483px; left: 980.71875px; display: inline;"></iframe><div class="bdshare_popup_box" id="bdSharePopup_1413945775632box" style="width: 226px; top: 1483px; left: 980.71875px; display: block;"><div class="bdshare_popup_top">分享到</div><ul class="bdshare_popup_list"><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_mshare" data-cmd="mshare">一键分享</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_qzone" data-cmd="qzone">QQ空间</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_tsina" data-cmd="tsina">新浪微博</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_bdysc" data-cmd="bdysc">百度云收藏</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_weixin" data-cmd="weixin">微信</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_renren" data-cmd="renren">人人网</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_tqq" data-cmd="tqq">腾讯微博</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_bdxc" data-cmd="bdxc">百度相册</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_kaixin001" data-cmd="kaixin001">开心网</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_tqf" data-cmd="tqf">腾讯朋友</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_tieba" data-cmd="tieba">百度贴吧</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_douban" data-cmd="douban">豆瓣网</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_tsohu" data-cmd="tsohu">搜狐微博</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_bdhome" data-cmd="bdhome">百度新首页</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_sqq" data-cmd="sqq">QQ好友</a></li><li><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_thx" data-cmd="thx">和讯微博</a></li></ul><div class="bdshare_popup_bottom"><a href="http://www.tuicool.com/articles/IreAVn#" onclick="return false;" class="popup_more" data-cmd="more" target="_blank;">更多...</a></div></div></body></html>

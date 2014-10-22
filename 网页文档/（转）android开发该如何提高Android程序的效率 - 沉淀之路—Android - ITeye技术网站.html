@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://gqdy365.iteye.com/blog/2122571 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站</title>
+    <meta name="description" content="转载自：http://87426628.blog.163.com/blog/static/60693618201392031532722/ 安卓开发中的安卓程序效率很重要，如果你做出一款登录很慢，打开很延时的产品，相信很多人都不愿意去使用，那么如何提高Android程序效率呢，也就是如何来优化Android的性能呢？本文提供给你一些想法，希望能够给广大安卓开发者带来灵感： 1）首先要有良好的编码习惯 ...">
+    <meta name="keywords" content=" （转）android开发该如何提高Android程序的效率">
+    <link rel="shortcut icon" href="http://gqdy365.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://gqdy365.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://gqdy365.iteye.com/rss" rel="alternate" title="沉淀之路—Android" type="application/rss+xml">
+    <link href="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/red.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/ga.js"></script><script src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/hotkey.js" type="text/javascript"></script>
+  <script src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/code_favorites.js" type="text/javascript"></script>
+<script src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/weiboshare.js" type="text/javascript"></script>
+  <link href="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/ui.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/compress.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://gqdy365.iteye.com/blog/2122571#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+  
+        <a href="http://yuyutao.iteye.com/" title="查看我的博客首页" class="welcome">欢迎yuyutao</a>
+    <a id="notifications_count" href="http://my.iteye.com/notifications" class="" title="没有未读消息">0</a>
+    
+      <a href="http://my.iteye.com/messages" title="发送站内短信">收件箱</a>
+    
+    <a href="http://my.iteye.com/" title="我的应用首页">我的应用</a>
+    <div class="quick_menu" style="display:none;">
+      <a href="http://my.iteye.com/feed" title="我关注的好友动态消息">我的关注</a>
+      <a href="http://my.iteye.com/mygroup" title="我加入的群组最新话题">我的群组</a>
+      <a href="http://my.iteye.com/myresume" title="我的个人简历">我的简历</a>
+      <a href="http://my.iteye.com/admin/album" title="我的个人简历">我的相册</a>
+      <a href="http://my.iteye.com/admin/link" title="我收藏的网络资源链接">我的收藏</a>
+      <a href="http://my.iteye.com/admin/code" title="我收藏的代码">我的代码</a>
+      <a href="http://my.iteye.com/admin/weibo" title="用微博发表简短的话题">我的微博</a>
+    </div>
+    <a href="http://yuyutao.iteye.com/admin" title="管理我的博客">我的博客</a>
+    <a href="http://my.iteye.com/profile" title="修改我的个人设置">设置</a>
+    <a href="http://gqdy365.iteye.com/logout" class="nobg" onclick="var f = document.createElement(&#39;form&#39;); f.style.display = &#39;none&#39;; this.parentNode.appendChild(f); f.method = &#39;POST&#39;; f.action = this.href;var m = document.createElement(&#39;input&#39;); m.setAttribute(&#39;type&#39;, &#39;hidden&#39;); m.setAttribute(&#39;name&#39;, &#39;_method&#39;); m.setAttribute(&#39;value&#39;, &#39;put&#39;); f.appendChild(m);var s = document.createElement(&#39;input&#39;); s.setAttribute(&#39;type&#39;, &#39;hidden&#39;); s.setAttribute(&#39;name&#39;, &#39;authenticity_token&#39;); s.setAttribute(&#39;value&#39;, &#39;woLksltZuqMQR6XCKWa2xo3pSzDdEO8zokaLwkV7X0o=&#39;); f.appendChild(s);f.submit();return false;">退出</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://gqdy365.iteye.com/">沉淀之路—Android</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://gqdy365.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://gqdy365.iteye.com/weibo">微博</a></li>
+            <li><a href="http://gqdy365.iteye.com/album">相册</a></li>
+            <li><a href="http://gqdy365.iteye.com/link">收藏</a></li>
+            <li><a href="http://gqdy365.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://gqdy365.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://gqdy365.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://gqdy365.iteye.com/" class="p-author" target="_blank">gqdy365</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站.html">（转）android开发该如何提高Android程序的效率</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://gqdy365.iteye.com/category/322248">Android疑难杂症</a></li> </ul>
+        <div class="news_tag"></div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    转载自：http://87426628.blog.163.com/blog/static/60693618201392031532722/
+<br>
+<br>安卓开发中的安卓程序效率很重要，如果你做出一款登录很慢，打开很延时的产品，相信很多人都不愿意去使用，那么如何提高Android程序效率呢，也就是如何来优化Android的性能呢？本文提供给你一些想法，希望能够给广大安卓开发者带来灵感：
+<br>
+<br>1）首先要有良好的编码习惯
+<br>
+<br>一个优秀的开发者应该善于运用常识、完善的算法和标准设计模式。要有资源意识，打开了就要记得关闭，尽量做到晚获取，早释放。这些由来已久的编码准则同样适用Android应用开发，尤其是使用基础设备服务时。
+<br>
+<br>
+<br>
+<br>2）让阻塞操作远离主UI线程
+<br>
+<br>通过使用AsyncTask、线程、IntentService和自定义后台服务，保证应用的灵活性。使用加载工具简化游标等长时间加载数据的状态管理。当有其他程序运行时，不能让你的应用滞后或中止。
+<br>
+<br>如果一个操作需要消耗较多时间和资源时，取消该操作，换成异步处理，这样应用就能保持响应，用户可以继续各种操作。该方法适用磁盘读写、访问内容提供方、数据库和互联网，以及解析和其他需要花费较长时间的任务。
+<br>
+<br>
+<br>
+<br>3）使用最新的Android SDK版本和API
+<br>
+<br>使用Android平台的最新产品，保证你的应用紧跟Android的更新步伐。随着Android平台的不断发展，部分功能可能被弃用或被更好的功能取代，核心API接收了bug修复和性能改进，新API有助于开发者编写出更稳定的应用。要明白最佳的做法总是随着时间的推移而变，聪明的开发者应该总是站在整个平台的最前沿。
+<br>
+<br>
+<br>
+<br>4）考虑使用StrictMode
+<br>
+<br>从Android 2.3开始提供了一个新的类StrictMode，该类可以用于捕捉发生在应用程序主线程中耗时的磁盘、网络访问或函数调用，可以帮助开发者改进程序，使主线程处理UI和动画在磁盘读写和网络操作时变得更平滑，避免主线程被阻塞。
+<br>
+<br>
+<br>
+<br>5）发布前禁用或尽量减少调试
+<br>
+<br>如果开发周期较长，你很可能在应用中内置了一些日志或调试代码，在发布前确保这些功能已经最小化或完全禁用。
+<br>
+<br>
+<br>
+<br>6）确保UI布局简单优雅
+<br>
+<br>简单的屏幕不仅方便阅读，还能加快加载速度。与其在一个单一屏幕上堆砌太多不必要的功能，不如花时间去开发优雅的用户界面。简单优雅的UI不仅能提高应用性能，还能提高用户使用该应用时的效率。
+<br>
+<br>
+<br>
+<br>7）根据目标设备调整应用资源
+<br>
+<br>为尽可能高效地被加载，需要根据具体设备的配置调整相应资源，尤其是图片资源。为使应用包文件合理适用不同设备，首先可只添加运行该应用需要的核心资源，然后再根据具体设备下载相关内容。
+<br>
+<br>
+<br>
+<br>8）使用Hierachy Viewer可视化调试工具
+<br>
+<br>Hierachy Viewer能很方便地在开发者设计，调试和调整界面时，快速定位问题，解决问题，提高开发效率。
+<br>
+<br>
+<br>
+<br>9）使用layoutopt进行布局优化
+<br>
+<br>Layoutopt是一款简单的命令行工具，可帮助找到不必要的控件嵌套以及缩减布局资源，从而使应用变得可能“苗条”。控件越少、布局层次越浅，性能就越好。
+<br>
+<br>
+<br>
+<br>10）使用Traceview及其他Android工具进行分析
+<br>
+<br>Android SDK随带了很多用于应用分析的工具，其中最受欢迎的是Traceview，这款图形工具可以帮助调试和找到应用中的性能瓶颈。
+<br>
+<br>
+<br>
+<br>11）http用gzip压缩，设置连接超时时间和响应超时时间
+<br>http请求按照业务需求，分为是否可以缓存和不可缓存，那么在无网络的环境中，仍然通过缓存的httpresponse浏览部分数据，实现离线阅读。
+<br>
+<br>12）.使用线程池，分为核心线程池和普通线程池，下载图片等耗时任务放置在普通线程池，避免耗时任务阻塞线程池后，导致所有异步任务都必须等待
+<br>
+<br>13）.listview 性能优化
+<br>1).异步加载图片
+<br>item中如果包含有webimage，那么最好异步加载
+<br>2).快速滑动时不显示图片
+<br>当快速滑动列表时（SCROLL_STATE_FLING），item中的图片或获取需要消耗资源的view，可以不显示出来；而处于其他两种状态（SCROLL_STATE_IDLE 和SCROLL_STATE_TOUCH_SCROLL），则将那些view显示出来
+<br>3).复用convertView
+<br>在getItemView中，判断convertView是否为空，如果不为空，可复用。如果couvertview中的view需要添加listerner，代码一定要在if(convertView==null){}之外。
+<br>4).BaseAdapter避免内存溢出
+<br>如果BaseAdapter的实体类有属性非常消耗内存，可以将保存到文件；为提高性能，可以进行缓存，并限制缓存大小。
+<br>
+<br>14）.尽量避免static成员变量引用资源耗费过多的实例,比如Context
+<br>5.异步任务，分为核心任务和普通任务，只有核心任务中出现的系统级错误才会报错，异步任务的ui操作需要判断原activity是否处于激活状态
+<br>
+<br>15）.保证Cursor 占用的内存被及时的释放掉，而不是等待GC来处理。并且 Android明显是倾向于编 程者手动的将Cursor close掉
+<br>
+<br>16）.线程也是造成内存泄露的一个重要的源头。线程产生内存泄露的主要原因在于线程 生命周期的不可控
+<br>
+<br>17）.使用WeakReference代替强引用，弱引用可以让您保持对对象的引用，同时允许GC在必要时释放对象，回收内存。对于那些创建便宜但耗费大量内存的对象，即希望保持该对象，又要在应用程序需要时使用，同时希望GC必要时回收时，可以考虑使用弱引用。
+<br>
+<br>18）.超级大胖子Bitmap及时的销毁(Activity的onDestroy时将bitmap回收，在被UI组件使用后马上进行回收会抛 RuntimeException: Canvas: trying to use a recycled bitmap android.graphics.Bitmap)设置一定的采样率(有开发者提供的图片无需进行采样，对于有用户上传或第三方的大小不可控图片，可进行采样减少图片所占的内存)，从服务端返回图片，建议同时反馈图片的size巧妙的运用软引用drawable对应resid的资源，bitmap对应其他资源任何类型的图片，如果获取不到（例如文件不存在，或者读取文件时跑OutOfMemory异常），应该有对应的默认图片（默认图片放在在apk中，通过resid获取）；
+<br>
+<br>19）.Drawable中ui组件需要用到的图片是apk包自带的，那么一律用setImageResource或者setBackgroundResource，而不要根据resourceid
+<br>注意：get(getResources(), R.drawable.btn_achievement_normal)该方法通过resid转换为drawable，需要考虑回收的问题，如果drawable是对象私有对象，在对象销毁前是肯定不会释放内存的。
+<br>
+<br>20）.复用、回收Activity对象临时的activity及时finish主界面设置为singleTask一般界面设置为singleTop
+<br>
+<br>21）.如果ImageView的图片是来自网络，进行异步加载
+<br>
+<br>22）.应用开发中自定义View的时候，交互部分，千万不要写成线程不断刷新界面显示，而是根据TouchListener事件主动触发界面的更新
+<br>
+<br>23）.在onResume时设置该界面的电源管理，在onPause时取消设置
+<br>
+<br>24）.位置信息获取用户的地理位置信息时，在需要获取数据的时候打开GPS，之后及时关闭掉
+<br>
+<br>25）耗时操作
+<br>有哪些耗时的操作呢？最常见的是网络连接操作，网络状态随着环境的变化有很大差异，网络好的地方可能速度很快，但网络差的地方需要等待很长时间，所以一定不能在UI线程中执行网络操作。另外就是数据库操作和SD卡文件的读写操作，这些操作都尽量不要在UI线程中完成，对于数据库操作，我们可以建一些索引来提高程序运行速度。
+<br>
+<br>模拟器和真实的设备
+<br>
+<br>在模拟器和真实的设备上运行也有很大的差异，模拟器需要更好的CPU，如果你的电脑性能很差，你就会感觉到运行速度很慢，但如果在真实的设备上运行会很快，另外模拟器使用的是系统硬盘，访问速度会比真实的设备访问SD卡快很多。
+<br>
+<br>
+<br>
+<br>26）通知用户
+<br>当需要用户等待时，一定要用进度条等告诉用户程序还在运行中，不要让用户界面卡死，使用一些正在载入的动画会让用户有更好的使用体验。
+  </div>
+
+  
+
+
+  
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://gqdy365.iteye.com/blog/2122794" class="next" title="android中主要用到的几种设计模式总结（转）">android中主要用到的几种设计模式总结（转 ...</a>
+      |
+      <a href="http://gqdy365.iteye.com/blog/2119646" class="pre" title="知识梳理之Android进程">知识梳理之Android进程</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2014-09-26 11:36</li>
+      <li>浏览 37</li>
+      <li><a href="http://gqdy365.iteye.com/blog/2122571#comments">评论(0)</a></li>
+      
+      
+        <li><a href="http://gqdy365.iteye.com/admin/link?user_favorite%5Btitle%5D=%EF%BC%88%E8%BD%AC%EF%BC%89android%E5%BC%80%E5%8F%91%E8%AF%A5%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98Android%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%95%88%E7%8E%87&user_favorite%5Burl%5D=http%3A%2F%2Fgqdy365.iteye.com%2Fblog%2F2122571" target="_blank" class="favorite" onclick="$$(&#39;.favorite_form_spinner&#39;)[0].show();new Ajax.Request(&#39;/admin/link/new_xhr?user_favorite%5Btitle%5D=%EF%BC%88%E8%BD%AC%EF%BC%89android%E5%BC%80%E5%8F%91%E8%AF%A5%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98Android%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%95%88%E7%8E%87&amp;user_favorite%5Burl%5D=http%3A%2F%2Fgqdy365.iteye.com%2Fblog%2F2122571&#39;, {method: &#39;get&#39;, onSuccess: function(response){$(document.getElementsByTagName(&#39;body&#39;)[0]).insert({bottom:response.responseText});$$(&#39;.favorite_form_spinner&#39;)[0].hide();}});return false;">收藏</a><img alt="Spinner" class="favorite_form_spinner" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/spinner.gif" style="vertical-align:bottom;margin-left:7px;display:none;"></li>
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/mobile">移动开发</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/2122571" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <form action="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站.html" id="comment_form" method="post" onsubmit="return false;"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="woLksltZuqMQR6XCKWa2xo3pSzDdEO8zokaLwkV7X0o="></div>          
+
+
+  <input type="hidden" id="editor_bbcode_flag" value="true">
+
+
+
+<div id="editor_main"><div id="editor_wrapper" class="clearfix"><div id="bbcode_emotions"><h5>表情图标</h5><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_biggrin.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_smile.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_sad.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_surprised.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_eek.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_confused.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_cool.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_lol.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_mad.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_razz.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_redface.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_cry.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_evil.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_twisted.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_rolleyes.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_wink.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_exclaim.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_question.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_idea.gif"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_arrow.gif"></div><div id="bbcode_controllers"><div id="bbcode_toolbar"><input type="button" value="B" id="button_bold"><input type="button" value="I" id="button_italic"><input type="button" value="U" id="button_underline"><input type="button" value="Quote"><input type="button" value="Code"><input type="button" value="List"><input type="button" value="Img"><input type="button" value="URL"><input type="button" value="Flash"><input type="button" value="Table"><br>字体颜色: <select id="select_color"><option value="black" style="color: black;">标准</option><option value="darkred" style="color: darkred;">深红</option><option value="red" style="color: red;">红色</option><option value="orange" style="color: orange;">橙色</option><option value="brown" style="color: brown;">棕色</option><option value="yellow" style="color: yellow;">黄色</option><option value="green" style="color: green;">绿色</option><option value="olive" style="color: olive;">橄榄</option><option value="cyan" style="color: cyan;">青色</option><option value="blue" style="color: blue;">蓝色</option><option value="darkblue" style="color: darkblue;">深蓝</option><option value="indigo" style="color: indigo;">靛蓝</option><option value="violet" style="color: violet;">紫色</option><option value="gray" style="color: gray;">灰色</option><option value="white" style="color: white;">白色</option><option value="black" style="color: black;">黑色</option></select>&nbsp;字体大小: <select id="select_font"><option value="0">标准</option><option value="xx-small">1 (xx-small)</option><option value="x-small">2 (x-small)</option><option value="small">3 (small)</option><option value="medium">4 (medium)</option><option value="large">5 (large)</option><option value="x-large">6 (x-large)</option><option value="xx-large">7 (xx-large)</option></select>&nbsp;对齐: <select id="select_align"><option value="0">标准</option><option value="left">居左</option><option value="center">居中</option><option value="right">居右</option></select></div><div id="bbcode_tooltip">提示：选择您需要装饰的文字, 按上列按钮即可添加上相应的标签</div><textarea class="validate-richeditor bad-words min-length-5" cols="40" id="editor_body" name="comment[body]" rows="20" style="width: 500px; height: 350px;"></textarea></div></div></div>
+
+
+<script type="text/javascript">
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</script>
+
+          <p style="text-align:right;margin-right:30px;">(快捷键 Alt+S / Ctrl+Enter) <input class="submit" id="quick_reply_button" name="commit" type="submit" value="提交"></p>
+       </form>
+        <script type="text/javascript">
+          new HotKey("s",function() {$('quick_reply_button').click();},{altKey: true, ctrlKey: false});
+          new HotKey(new Number(13),function() {$('quick_reply_button').click();},{altKey: false, ctrlKey: true});
+
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+            if(result) {
+              new Ajax.Request('/blog/create_comment/2122571', {
+                onFailure:function(response){
+                  $('comments').insert({after:response.responseText})
+                  form.spinner.hide();
+                  Element.scrollTo($('comments'));
+                },
+                onSuccess:function(response){
+                  Element.scrollTo($('comments'));
+                  var new_comment = new Element('div', {}).update(response.responseText).firstChild;
+                  var comment_id = new_comment.readAttribute('id');
+
+                  $('comments').insert({after:response.responseText});
+                  $('editor_body').value = "";
+
+                  var css_rules = '#' + comment_id + ' pre';
+                  highlightNewAddContent(css_rules);
+                  processComment();
+                  code_favorites_init(css_rules);
+                  
+                  form.spinner.hide();
+                }, parameters:Form.serialize(form)
+              });
+            }
+        }});
+        </script>
+        </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 2122571;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', '（转）android开发该如何提高Android程序的效率');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', '（转）android开发该如何提高Android程序的效率');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://gqdy365.iteye.com/"><img alt="gqdy365的博客" class="logo" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/28c74a3f-6a81-381f-8d6b-cc2ebc46b36f.png" title="gqdy365的博客: 沉淀之路—Android" width=""></a></div>
+  <div id="blog_owner_name">gqdy365</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 230147 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 深圳</li>
+              <li><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/offline.gif"></li>
+              
+                <li>
+                  <a href="http://my.iteye.com/messages/new?message%5Breceiver_name%5D=gqdy365" class="message" title="发送站内短信">发短消息</a>
+                  
+                    <a href="http://my.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=gqdy365" class="subscription" onclick="var f = document.createElement(&#39;form&#39;); f.style.display = &#39;none&#39;; this.parentNode.appendChild(f); f.method = &#39;POST&#39;; f.action = this.href;var s = document.createElement(&#39;input&#39;); s.setAttribute(&#39;type&#39;, &#39;hidden&#39;); s.setAttribute(&#39;name&#39;, &#39;authenticity_token&#39;); s.setAttribute(&#39;value&#39;, &#39;woLksltZuqMQR6XCKWa2xo3pSzDdEO8zokaLwkV7X0o=&#39;); f.appendChild(s);f.submit();return false;">关注</a>
+                  
+                </li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://gqdy365.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://yuyutao.iteye.com/" target="_blank"><img alt="yuyutao的博客" class="logo" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="yuyutao的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://yuyutao.iteye.com/" target="_blank" title="yuyutao">yuyutao</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://z574671440.iteye.com/" target="_blank"><img alt="z574671440的博客" class="logo" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="z574671440的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://z574671440.iteye.com/" target="_blank" title="z574671440">z574671440</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://xjh425323.iteye.com/" target="_blank"><img alt="xjh425323的博客" class="logo" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="xjh425323的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://xjh425323.iteye.com/" target="_blank" title="xjh425323">xjh425323</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://lipi042222.iteye.com/" target="_blank"><img alt="lipi042222的博客" class="logo" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/user-logo-thumb.gif" title="lipi042222的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://lipi042222.iteye.com/" target="_blank" title="lipi042222">lipi042222</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://gqdy365.iteye.com/">全部博客 (87)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/119113">android Launcher (16)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/141735">收藏夹 (5)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/151647">UI布局 (24)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/157791">J2EE (2)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/163561">android网络编程 (7)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/186916">项目经理是熬出来的 (7)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/221700">Android图像处理 (5)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/226738">系统层开发 (7)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/298104">数据库 (1)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/319818">程序员是熬出来的 (3)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/320205">Android技巧 (6)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/321397">地图相关 (1)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/321586">Android底层 (1)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/322248">Android疑难杂症 (2)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/323218">开发工具 (3)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/324847">知识梳理 (2)</a></li>
+                
+                  <li><a href="http://gqdy365.iteye.com/category/324911">源码阅读 (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://gqdy365.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://gqdy365.iteye.com/blog/post">我的论坛</a> (8)
+                </li>
+                <li><a href="http://gqdy365.iteye.com/blog/answered_problems">我的问答</a> (1)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://gqdy365.iteye.com/blog/monthblog/2014-10">2014-10</a> (3)</li>
+                
+                  <li><a href="http://gqdy365.iteye.com/blog/monthblog/2014-09">2014-09</a> (14)</li>
+                
+                  <li><a href="http://gqdy365.iteye.com/blog/monthblog/2014-08">2014-08</a> (9)</li>
+                
+                <li><a href="http://gqdy365.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+              <div id="comments_top">
+                <h5>评论排行榜</h5>
+                <ul>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2104046" title="Android 网页抓取（实现新闻客户端）">Android 网页抓取（实现新闻客户端）</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2111668" title="想做项目经理？这些工具必须了解">想做项目经理？这些工具必须了解</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2114968" title="Android ViewPager切换的N种动画">Android ViewPager切换的N种动画</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/1978281" title="Android应用程序数据库版本升级">Android应用程序数据库版本升级</a></li>
+                  
+                    <li><a href="http://gqdy365.iteye.com/blog/2002488" title="Android中文按拼音排序">Android中文按拼音排序</a></li>
+                  
+                </ul>
+              </div>
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://gqdy365.iteye.com/" target="_blank" title="gqdy365">gqdy365</a>： 
+                  chuguoyu330449681 写道博主，我已经等您了三天 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360768">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://chuguoyu330449681.iteye.com/" target="_blank" title="chuguoyu330449681">chuguoyu330449681</a>： 
+                  博主，我已经等您了三天了，我真的很需要您的新闻客户端源码，谢谢 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360551">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://chuguoyu330449681.iteye.com/" target="_blank" title="chuguoyu330449681">chuguoyu330449681</a>： 
+                  我也想要，谢谢，330449681@qq.com<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360550">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://gqdy365.iteye.com/" target="_blank" title="gqdy365">gqdy365</a>： 
+                  dede123456789 写道博主，在你万忙的时候，抽出一会 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360386">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+                <li>
+                  <a href="http://dede123456789.iteye.com/" target="_blank" title="dede123456789">dede123456789</a>： 
+                  博主，在你万忙的时候，抽出一会时间，送我一份新闻app的源码好 ...<br>
+                  <a href="http://gqdy365.iteye.com/blog/2104046#bc2360334">Android 网页抓取（实现新闻客户端）</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2014 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=676082' width='0' height='0' />");
+</script><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/saved_resource" width="0" height="0">
+
+<script src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/tracking.js" type="text/javascript"></script>
+
+    
+<script type="text/javascript" src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/tongji.js"></script><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/tongji.do" border="0" width="1" height="1"><a href="http://tongji.linezing.com/report.html?unit_id=3500918" target="_blank"><img src="./（转）android开发该如何提高Android程序的效率 - 沉淀之路—Android - ITeye技术网站_files/icon1.gif" border="0" alt="量子统计"></a>
+      
+    
+  
+
+</body></html>
